@@ -1,0 +1,3240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Functionality Intelligence OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --surface-2: #F2F1ED;
+    --border: #E8E6DF;
+    --border-strong: #D4D0C8;
+    --text-primary: #1A1916;
+    --text-secondary: #6B6860;
+    --text-muted: #9B9890;
+    --accent-blue: #2563EB;
+    --accent-blue-soft: #EEF3FF;
+    --accent-green: #0D9166;
+    --accent-green-soft: #EDFAF3;
+    --accent-amber: #B45309;
+    --accent-amber-soft: #FEF3E2;
+    --accent-rose: #C2185B;
+    --accent-rose-soft: #FDF0F5;
+    --accent-violet: #7C3AED;
+    --accent-violet-soft: #F3EFFF;
+    --accent-teal: #0F766E;
+    --accent-teal-soft: #EFFAF9;
+    --nav-width: 260px;
+    --top-bar: 64px;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--top-bar);
+    background: rgba(247,246,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px 0 calc(var(--nav-width) + 24px);
+    z-index: 200;
+    gap: 16px;
+  }
+
+  .top-bar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .brand-icon {
+    width: 32px; height: 32px;
+    background: var(--text-primary);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .brand-icon svg { width: 18px; height: 18px; fill: white; }
+
+  .brand-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  .top-search {
+    flex: 1;
+    max-width: 480px;
+    position: relative;
+  }
+
+  .top-search input {
+    width: 100%;
+    padding: 9px 16px 9px 38px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .top-search input:focus { border-color: var(--accent-blue); }
+
+  .top-search input::placeholder { color: var(--text-muted); }
+
+  .search-icon {
+    position: absolute;
+    left: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    width: 16px; height: 16px;
+  }
+
+  .top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .btn-ghost {
+    padding: 7px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    background: var(--surface);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-ghost:hover { border-color: var(--text-primary); color: var(--text-primary); }
+
+  .btn-primary {
+    padding: 7px 14px;
+    border: none;
+    border-radius: 7px;
+    background: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* ── LEFT NAV ── */
+  .left-nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--nav-width);
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .left-nav::-webkit-scrollbar { width: 4px; }
+  .left-nav::-webkit-scrollbar-track { background: transparent; }
+  .left-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .nav-logo {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .nav-logo-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--text-primary);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .nav-section-label {
+    padding: 16px 20px 6px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .nav-item:hover { background: var(--bg); color: var(--text-primary); }
+
+  .nav-item.active {
+    border-left-color: var(--text-primary);
+    background: var(--bg);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nav-count {
+    margin-left: auto;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    background: var(--bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    margin-left: var(--nav-width);
+    padding-top: var(--top-bar);
+    min-height: 100vh;
+  }
+
+  .content-area {
+    padding: 32px 40px 64px;
+    max-width: 1280px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    margin-bottom: 40px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-blue-soft);
+    color: var(--accent-blue);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent-blue);
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 640px;
+    line-height: 1.7;
+  }
+
+  /* ── METRICS STRIP ── */
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    transition: box-shadow 0.2s;
+  }
+
+  .metric-card:hover { box-shadow: var(--shadow-md); }
+
+  .metric-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .metric-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-hd {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-right: 4px;
+  }
+
+  .filter-chip {
+    padding: 5px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    font-weight: 400;
+  }
+
+  .filter-chip:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+  .filter-chip.active { background: var(--text-primary); border-color: var(--text-primary); color: white; font-weight: 500; }
+
+  /* ── CATEGORY CARDS ── */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .cat-card:hover { box-shadow: var(--shadow-md); }
+
+  .cat-card.hidden { display: none; }
+
+  .cat-header {
+    padding: 20px 22px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    user-select: none;
+  }
+
+  .cat-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .cat-info { flex: 1; min-width: 0; }
+
+  .cat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+
+  .cat-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+
+  .cat-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .cat-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .cat-toggle {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .cat-card.open .cat-toggle {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: white;
+    transform: rotate(45deg);
+  }
+
+  .cat-body {
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .cat-card.open .cat-body { display: block; }
+
+  .cat-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    padding: 0 22px;
+  }
+
+  .cat-tab {
+    padding: 12px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .cat-tab:hover { color: var(--text-primary); }
+
+  .cat-tab.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+  }
+
+  .cat-panel {
+    padding: 20px 22px;
+    display: none;
+  }
+
+  .cat-panel.active { display: block; }
+
+  .panel-heading {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .examples-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .example-pill {
+    font-size: 12px;
+    padding: 4px 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-secondary);
+  }
+
+  .info-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .info-block {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+  }
+
+  .info-block-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+
+  .info-block-text {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .lens-section {
+    margin-bottom: 14px;
+  }
+
+  .lens-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .lens-icon {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .lens-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .lens-text {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding-left: 30px;
+  }
+
+  .score-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+    padding-left: 30px;
+  }
+
+  .score-bar {
+    flex: 1;
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .score-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s ease;
+  }
+
+  .score-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    width: 30px;
+    text-align: right;
+  }
+
+  .industries-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding-left: 30px;
+    margin-top: 4px;
+  }
+
+  .ind-chip {
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ── ARCHITECTURE TREE ── */
+  #section-architecture { margin-bottom: 48px; }
+
+  .tree-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    overflow-x: auto;
+  }
+
+  .tree-root {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--text-primary);
+    padding: 12px 18px;
+    background: var(--text-primary);
+    color: white;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+
+  .tree-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .tree-node {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .tree-node:hover {
+    border-color: var(--text-secondary);
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+  }
+
+  .tree-node-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .tree-node-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .tree-node-count {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .tree-node-bar {
+    height: 3px;
+    border-radius: 2px;
+    margin-top: 8px;
+  }
+
+  /* ── WORKFLOW SECTION ── */
+  #section-workflow { margin-bottom: 48px; }
+
+  .workflow-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+
+  .workflow-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .workflow-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .pipeline-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 28px;
+  }
+
+  .pipeline-step {
+    flex: 1;
+    min-width: 130px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 16px 14px;
+    position: relative;
+  }
+
+  .pipeline-step:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+  .pipeline-step:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+
+  .pipeline-step + .pipeline-step {
+    border-left: none;
+  }
+
+  .pipeline-step + .pipeline-step::before {
+    content: '';
+    position: absolute;
+    left: -8px; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid var(--border);
+    z-index: 1;
+  }
+
+  .pipeline-step + .pipeline-step::after {
+    content: '';
+    position: absolute;
+    left: -6px; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid var(--bg);
+    z-index: 2;
+  }
+
+  .pipeline-icon { font-size: 20px; margin-bottom: 8px; }
+
+  .pipeline-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pipeline-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── XCOGNITIVES SECTION ── */
+  #section-xcognitives { margin-bottom: 48px; }
+
+  .xcog-card {
+    background: var(--text-primary);
+    color: white;
+    border-radius: var(--radius);
+    padding: 40px;
+  }
+
+  .xcog-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.8);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .xcog-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .xcog-title em { font-style: italic; color: #93C5FD; }
+
+  .xcog-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .xcog-modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .xcog-module {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm);
+    padding: 18px;
+    transition: background 0.2s;
+  }
+
+  .xcog-module:hover { background: rgba(255,255,255,0.1); }
+
+  .xcog-module-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .xcog-module-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .xcog-module-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  .xcog-capabilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .xcog-cap {
+    font-size: 11px;
+    padding: 5px 12px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ── OPERATING SYSTEM SECTION ── */
+  #section-os { margin-bottom: 48px; }
+
+  .os-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+
+  .os-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .os-layer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    transition: box-shadow 0.2s;
+  }
+
+  .os-layer:hover { box-shadow: var(--shadow); }
+
+  .os-layer-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .os-layer-bar {
+    width: 4px;
+    height: 36px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .os-layer-info { flex: 1; }
+
+  .os-layer-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .os-layer-cats {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .os-layer-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── SEARCH RESULTS ── */
+  .search-results {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .search-results-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .search-result-item {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-item:hover { background: var(--bg); }
+
+  .search-result-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .search-result-cat {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-left: var(--nav-width);
+    border-top: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+  }
+
+  .footer-left {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .footer-right {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── UTILITY ── */
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  .highlight { background: #FFF176; border-radius: 2px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .left-nav { transform: translateX(-100%); transition: transform 0.3s; }
+    .left-nav.open { transform: translateX(0); }
+    .main, footer { margin-left: 0; }
+    .top-bar { padding-left: 60px; }
+    .metrics-strip { grid-template-columns: repeat(2, 1fr); }
+    .categories-grid { grid-template-columns: 1fr; }
+    .tree-grid { grid-template-columns: repeat(2, 1fr); }
+    .xcog-modules { grid-template-columns: 1fr; }
+    .info-row { grid-template-columns: 1fr; }
+    .menu-btn { display: flex; }
+    .content-area { padding: 24px 20px 64px; }
+  }
+
+  @media (min-width: 901px) {
+    .menu-btn { display: none; }
+  }
+
+  .menu-btn {
+    position: fixed;
+    top: 18px; left: 16px;
+    z-index: 400;
+    width: 32px; height: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .menu-btn span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--text-primary);
+    border-radius: 1px;
+  }
+
+  .no-results {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  /* ── WEB ELEMENT INTELLIGENCE LAYER ── */
+  #section-weblayer { margin-bottom: 48px; }
+
+  .wei-intro-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 20px;
+  }
+
+  .wei-concept-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, #EEF3FF 0%, #F3EFFF 100%);
+    border: 1px solid #C7D8FF;
+    border-radius: var(--radius);
+    margin-bottom: 28px;
+  }
+
+  .wei-concept-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .wei-concept-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .wei-concept-text {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .wei-concept-text strong { color: var(--accent-blue); font-weight: 600; }
+
+  /* Web Pipeline */
+  .wei-pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+  }
+
+  .wei-step {
+    flex: 1;
+    min-width: 120px;
+    padding: 14px 12px;
+    border: 1px solid var(--border);
+    position: relative;
+    text-align: center;
+  }
+
+  .wei-step:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+  .wei-step:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .wei-step + .wei-step { border-left: none; }
+
+  .wei-step + .wei-step::before {
+    content: '';
+    position: absolute;
+    left: -9px; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 9px solid var(--border);
+    z-index: 1;
+  }
+
+  .wei-step + .wei-step::after {
+    content: '';
+    position: absolute;
+    left: -7px; top: 50%;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid white;
+    z-index: 2;
+  }
+
+  .wei-step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .wei-step-icon { font-size: 18px; margin-bottom: 6px; }
+
+  .wei-step-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .wei-step-desc {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .wei-step.highlight-step {
+    background: #EEF3FF;
+    border-color: #93C5FD;
+  }
+
+  .wei-step.highlight-step .wei-step-name { color: var(--accent-blue); }
+
+  /* Login example flow */
+  .wei-example-flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .wei-flow-node {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .wei-flow-arrow {
+    color: var(--text-muted);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Functionality-to-Elements table */
+  .wei-func-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .wei-func-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .wei-func-card:hover { box-shadow: var(--shadow-md); }
+
+  .wei-func-header {
+    padding: 14px 16px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .wei-func-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .wei-func-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .wei-func-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--bg);
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+
+  .wei-func-toggle {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .wei-func-card.open .wei-func-toggle {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: white;
+    transform: rotate(45deg);
+  }
+
+  .wei-func-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 14px 16px;
+  }
+
+  .wei-func-card.open .wei-func-body { display: block; }
+
+  .wei-elements-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .wei-el-pill {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 14px;
+    border: 1px solid;
+    font-weight: 400;
+  }
+
+  .wei-func-intent {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding: 8px 12px;
+    background: var(--bg);
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+
+  .wei-func-intent span {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .wei-api-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .wei-api-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    border-radius: 4px;
+    color: #334155;
+  }
+
+  /* Universal Element Categories */
+  .wei-uelcat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .wei-uelcat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .wei-uelcat-card:hover { box-shadow: var(--shadow-md); }
+
+  .wei-uelcat-header {
+    padding: 16px 18px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .wei-uelcat-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .wei-uelcat-info { flex: 1; }
+
+  .wei-uelcat-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .wei-uelcat-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .wei-uelcat-toggle {
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .wei-uelcat-card.open .wei-uelcat-toggle {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: white;
+    transform: rotate(45deg);
+  }
+
+  .wei-uelcat-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 14px 18px;
+  }
+
+  .wei-uelcat-card.open .wei-uelcat-body { display: block; }
+
+  /* Mental Model */
+  .wei-mental-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .wei-layers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 20px 0;
+  }
+
+  .wei-layer-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+
+  .wei-layer-num-badge {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--text-primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .wei-layer-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .wei-layer-example {
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+
+  /* Payment example mental model */
+  .wei-payment-model {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .wei-pm-step {
+    padding: 12px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .wei-pm-step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .wei-pm-step-icon { font-size: 18px; margin-bottom: 5px; }
+
+  .wei-pm-step-name {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+  }
+
+  .wei-pm-step-val {
+    font-size: 10.5px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* QA Lens for web elements */
+  .wei-qa-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .wei-qa-item {
+    padding: 12px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-align: center;
+    transition: box-shadow 0.15s;
+  }
+
+  .wei-qa-item:hover { box-shadow: var(--shadow); }
+
+  .wei-qa-icon { font-size: 18px; margin-bottom: 6px; }
+
+  .wei-qa-q {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+
+  /* Button ≠ Button insight card */
+  .wei-insight-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wei-insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: linear-gradient(90deg, #2563EB, #7C3AED, #C2185B, #0D9166);
+  }
+
+  .wei-insight-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .wei-insight-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .wei-insight-headline em { font-style: italic; color: var(--accent-blue); }
+
+  .wei-insight-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .wei-button-roles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .wei-btn-role {
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+
+  .wei-btn-role:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+
+  .wei-btn-role-icon { font-size: 17px; margin-bottom: 6px; }
+
+  .wei-btn-role-title {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+
+  .wei-btn-role-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* xCognitives Web Layer card */
+  .wei-xcog-add {
+    background: #F3EFFF;
+    border: 1px solid #C4B5FD;
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .wei-xcog-add-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .wei-xcog-add-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .wei-xcog-caps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+  }
+
+  .wei-xcog-cap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: white;
+    border: 1px solid #DDD6FE;
+    border-radius: var(--radius-sm);
+    transition: box-shadow 0.15s;
+  }
+
+  .wei-xcog-cap-item:hover { box-shadow: var(--shadow); }
+
+  .wei-xcog-cap-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: #F3EFFF;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .wei-xcog-cap-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .wei-xcog-cap-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 900px) {
+    .wei-payment-model { grid-template-columns: repeat(2, 1fr); }
+    .wei-qa-grid { grid-template-columns: repeat(2, 1fr); }
+    .wei-button-roles { grid-template-columns: repeat(2, 1fr); }
+    .wei-func-grid { grid-template-columns: 1fr; }
+    .wei-uelcat-grid { grid-template-columns: 1fr; }
+    .wei-xcog-caps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU BTN -->
+<button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- LEFT NAV -->
+<nav class="left-nav" id="leftNav">
+  <div class="nav-logo">
+    <div class="nav-logo-title">DFI OS</div>
+    <div class="nav-logo-sub">Digital Functionality Intelligence</div>
+  </div>
+  <div class="nav-section-label">Overview</div>
+  <a class="nav-item active" href="#section-top">
+    <div class="nav-dot" style="background:#2563EB"></div> Dashboard
+  </a>
+  <a class="nav-item" href="#section-architecture">
+    <div class="nav-dot" style="background:#7C3AED"></div> Architecture Tree
+  </a>
+  <a class="nav-item" href="#section-categories">
+    <div class="nav-dot" style="background:#0D9166"></div> Capability Map
+  </a>
+  <div class="nav-section-label">Core Categories</div>
+  <a class="nav-item" href="#cat-0"><div class="nav-dot" style="background:#2563EB"></div> Identity & Access<span class="nav-count">12</span></a>
+  <a class="nav-item" href="#cat-1"><div class="nav-dot" style="background:#0D9166"></div> Search & Discovery<span class="nav-count">12</span></a>
+  <a class="nav-item" href="#cat-2"><div class="nav-dot" style="background:#B45309"></div> Communication<span class="nav-count">12</span></a>
+  <a class="nav-item" href="#cat-3"><div class="nav-dot" style="background:#C2185B"></div> Transaction & Payment<span class="nav-count">12</span></a>
+  <a class="nav-item" href="#cat-4"><div class="nav-dot" style="background:#7C3AED"></div> Profile & Personalization<span class="nav-count">10</span></a>
+  <a class="nav-item" href="#cat-5"><div class="nav-dot" style="background:#0F766E"></div> Content Management<span class="nav-count">10</span></a>
+  <a class="nav-item" href="#cat-6"><div class="nav-dot" style="background:#D97706"></div> Workflow & Automation<span class="nav-count">10</span></a>
+  <a class="nav-item" href="#cat-7"><div class="nav-dot" style="background:#1D4ED8"></div> Data & Intelligence<span class="nav-count">10</span></a>
+  <a class="nav-item" href="#cat-8"><div class="nav-dot" style="background:#DC2626"></div> Trust & Security<span class="nav-count">10</span></a>
+  <a class="nav-item" href="#cat-9"><div class="nav-dot" style="background:#6B7280"></div> Infrastructure<span class="nav-count">10</span></a>
+  <a class="nav-item" href="#cat-10"><div class="nav-dot" style="background:#7C3AED"></div> AI-Native<span class="nav-count">10</span></a>
+  <a class="nav-item" href="#cat-11"><div class="nav-dot" style="background:#0891B2"></div> Industry-Specific<span class="nav-count">9+</span></a>
+  <a class="nav-item" href="#cat-12"><div class="nav-dot" style="background:#9D174D"></div> Human-Centric Future<span class="nav-count">10</span></a>
+  <div class="nav-section-label">Intelligence Layers</div>
+  <a class="nav-item" href="#section-workflow">
+    <div class="nav-dot" style="background:#B45309"></div> Functionality Pipeline
+  </a>
+  <a class="nav-item" href="#section-weblayer">
+    <div class="nav-dot" style="background:#2563EB"></div> Web Element Intelligence<span class="nav-count">NEW</span>
+  </a>
+  <a class="nav-item" href="#section-xcognitives">
+    <div class="nav-dot" style="background:#7C3AED"></div> xCognitives Map
+  </a>
+  <a class="nav-item" href="#section-os">
+    <div class="nav-dot" style="background:#1A1916"></div> Digital OS View
+  </a>
+</nav>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="top-bar-brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <div>
+      <div class="brand-name">Digital Functionality Intelligence OS</div>
+      <div class="brand-sub">Business Digitization Capability Map</div>
+    </div>
+  </div>
+  <div class="top-search">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" id="globalSearch" placeholder="Search functionalities, categories, capabilities…" autocomplete="off">
+  </div>
+  <div class="top-actions">
+    <button class="btn-ghost" onclick="expandAll()">Expand All</button>
+    <button class="btn-ghost" onclick="collapseAll()">Collapse All</button>
+    <button class="btn-primary" onclick="document.getElementById('section-xcognitives').scrollIntoView({behavior:'smooth'})">xCognitives →</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+<div class="content-area" id="section-top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+      v1.0 — Intelligence Architecture
+    </div>
+    <h1 class="hero-title">Digital Functionality<br><em>Intelligence OS</em></h1>
+    <p class="hero-desc">A complete, structured map of every digital capability a modern business needs — organized by functionality, analyzed through five intelligence lenses, and designed for teams building the next generation of digital products.</p>
+  </div>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-strip">
+    <div class="metric-card">
+      <div class="metric-badge" style="background:#EEF3FF;color:#2563EB">Categories</div>
+      <div class="metric-num" style="color:#2563EB">13</div>
+      <div class="metric-label">Capability categories covering all digital functions</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-badge" style="background:#EDFAF3;color:#0D9166">Functions</div>
+      <div class="metric-num" style="color:#0D9166">130+</div>
+      <div class="metric-label">Distinct functionality blocks mapped</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-badge" style="background:#FEF3E2;color:#B45309">Revenue</div>
+      <div class="metric-num" style="color:#B45309">6</div>
+      <div class="metric-label">Direct revenue-generating categories</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-badge" style="background:#FDF0F5;color:#C2185B">Security</div>
+      <div class="metric-num" style="color:#C2185B">3</div>
+      <div class="metric-label">Trust, security & compliance categories</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-badge" style="background:#F3EFFF;color:#7C3AED">AI-Native</div>
+      <div class="metric-num" style="color:#7C3AED">2</div>
+      <div class="metric-label">AI-first future functionality categories</div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE TREE -->
+  <section id="section-architecture">
+    <div class="section-hd">
+      <h2 class="section-title">Architecture Tree</h2>
+      <div class="section-line"></div>
+      <span class="section-count">13 nodes</span>
+    </div>
+    <div class="tree-wrap">
+      <div class="tree-root">Digital Business Operating System</div>
+      <div class="tree-grid" id="treeGrid"></div>
+    </div>
+  </section>
+
+  <!-- CAPABILITY MAP -->
+  <section id="section-categories">
+    <div class="section-hd">
+      <h2 class="section-title">Capability Map</h2>
+      <div class="section-line"></div>
+      <span class="section-count">13 categories</span>
+    </div>
+
+    <!-- SEARCH RESULTS PANEL -->
+    <div id="searchResultsPanel" style="display:none"></div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" id="filterBar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="revenue">💰 Revenue</button>
+      <button class="filter-chip" data-filter="security">🔒 Security</button>
+      <button class="filter-chip" data-filter="ai">🤖 AI-Native</button>
+      <button class="filter-chip" data-filter="infrastructure">⚙️ Infrastructure</button>
+      <button class="filter-chip" data-filter="user">👤 User-Facing</button>
+      <button class="filter-chip" data-filter="future">🔮 Future</button>
+      <button class="filter-chip" data-filter="webelements" onclick="document.getElementById('section-weblayer').scrollIntoView({behavior:'smooth'})">🧩 Web Elements</button>
+    </div>
+
+    <div class="categories-grid" id="categoriesGrid"></div>
+  </section>
+
+  <!-- WORKFLOW PIPELINE -->
+  <section id="section-workflow">
+    <div class="section-hd">
+      <h2 class="section-title">From Screen Testing to Functionality Intelligence</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="workflow-card">
+      <div class="workflow-title">The Functionality Pipeline Model</div>
+      <div class="workflow-subtitle">Every digital functionality is not a screen or an API — it is a complete, living workflow with seven stages, each carrying business value, risk, and intelligence opportunity.</div>
+      <div class="pipeline-flow">
+        <div class="pipeline-step">
+          <div class="pipeline-icon">🎯</div>
+          <div class="pipeline-name">User Intent</div>
+          <div class="pipeline-desc">What does the user actually want to accomplish?</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">📡</div>
+          <div class="pipeline-name">Request Pipeline</div>
+          <div class="pipeline-desc">How the intent is captured and transmitted</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">⚙️</div>
+          <div class="pipeline-name">Processing Pipeline</div>
+          <div class="pipeline-desc">Business logic, rules, validation, orchestration</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">📤</div>
+          <div class="pipeline-name">Response Pipeline</div>
+          <div class="pipeline-desc">Output generation, formatting, delivery</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">🗄️</div>
+          <div class="pipeline-name">Data Trail</div>
+          <div class="pipeline-desc">What gets stored, logged, and tracked</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">💼</div>
+          <div class="pipeline-name">Business Outcome</div>
+          <div class="pipeline-desc">Revenue, trust, retention, efficiency created</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">🧠</div>
+          <div class="pipeline-name">Intelligence Layer</div>
+          <div class="pipeline-desc">Risk points, AI opportunities, future evolution</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-block">
+          <div class="info-block-label">Legacy View</div>
+          <div class="info-block-text">UI Testing → API Testing → Database Testing → Security Testing — treated as disconnected technical checkpoints, each siloed from business context.</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-label">Intelligence View</div>
+          <div class="info-block-text">Each functionality is a complete workflow: user intent flows through request, processing, response, data, outcome, and intelligence — every stage tested and optimized as one living system.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEB ELEMENT INTELLIGENCE LAYER -->
+  <section id="section-weblayer">
+    <div class="section-hd">
+      <h2 class="section-title">Web Element Intelligence Layer</h2>
+      <div class="section-line"></div>
+      <span class="section-count">17 functions · 6 element types</span>
+    </div>
+
+    <!-- Concept Banner -->
+    <div class="wei-concept-banner">
+      <div class="wei-concept-icon">🧩</div>
+      <div>
+        <div class="wei-concept-title">A Web Element is Not Just UI.</div>
+        <div class="wei-concept-text">
+          A web element is a <strong>Business Intent Capture Node</strong> — the visible, interactive surface through which a user activates a digital business capability. Every input field, button, dropdown, and card is a node in a business workflow: capturing intent, triggering events, initiating API calls, and ultimately producing business outcomes. When you test a button, you are not testing pixels — you are testing a gateway to revenue, trust, and business continuity.
+        </div>
+      </div>
+    </div>
+
+    <!-- The Full Web Pipeline -->
+    <div class="wei-intro-card">
+      <div class="workflow-title" style="font-size:18px;margin-bottom:6px">Digital Functionality → Web Element Pipeline</div>
+      <div class="workflow-subtitle">How a business capability flows through the browser into backend systems and creates a business outcome.</div>
+
+      <div class="wei-pipeline">
+        <div class="wei-step">
+          <div class="wei-step-num">01</div>
+          <div class="wei-step-icon">🏢</div>
+          <div class="wei-step-name">Business Functionality</div>
+          <div class="wei-step-desc">The capability the business wants to offer</div>
+        </div>
+        <div class="wei-step">
+          <div class="wei-step-num">02</div>
+          <div class="wei-step-icon">🎯</div>
+          <div class="wei-step-name">User Intent</div>
+          <div class="wei-step-desc">What the user wants to accomplish</div>
+        </div>
+        <div class="wei-step highlight-step">
+          <div class="wei-step-num">03</div>
+          <div class="wei-step-icon">🧩</div>
+          <div class="wei-step-name">Web Elements</div>
+          <div class="wei-step-desc">The visible nodes that capture and activate intent</div>
+        </div>
+        <div class="wei-step">
+          <div class="wei-step-num">04</div>
+          <div class="wei-step-icon">⚡</div>
+          <div class="wei-step-name">Browser Events</div>
+          <div class="wei-step-desc">click, submit, change, input, focus</div>
+        </div>
+        <div class="wei-step">
+          <div class="wei-step-num">05</div>
+          <div class="wei-step-icon">📡</div>
+          <div class="wei-step-name">API Calls</div>
+          <div class="wei-step-desc">POST /auth, GET /search, PUT /profile</div>
+        </div>
+        <div class="wei-step">
+          <div class="wei-step-num">06</div>
+          <div class="wei-step-icon">⚙️</div>
+          <div class="wei-step-name">Backend Processing</div>
+          <div class="wei-step-desc">Business logic, validation, data persistence</div>
+        </div>
+        <div class="wei-step">
+          <div class="wei-step-num">07</div>
+          <div class="wei-step-icon">💼</div>
+          <div class="wei-step-name">Business Outcome</div>
+          <div class="wei-step-desc">Revenue, session, trust, data, value</div>
+        </div>
+      </div>
+
+      <!-- Login example flow -->
+      <div style="margin-bottom:10px">
+        <div class="panel-heading">Example: Login Flow</div>
+        <div class="wei-example-flow">
+          <div class="wei-flow-node" style="background:#EEF3FF;color:#2563EB">🏢 Login Functionality</div>
+          <div class="wei-flow-arrow">→</div>
+          <div class="wei-flow-node" style="background:#F3EFFF;color:#7C3AED">🎯 User wants access</div>
+          <div class="wei-flow-arrow">→</div>
+          <div class="wei-flow-node" style="background:#EDFAF3;color:#0D9166">📧 Email field</div>
+          <div class="wei-flow-node" style="background:#EDFAF3;color:#0D9166">🔒 Password field</div>
+          <div class="wei-flow-node" style="background:#EDFAF3;color:#0D9166">🔘 Login button</div>
+          <div class="wei-flow-arrow">→</div>
+          <div class="wei-flow-node" style="background:#FEF3E2;color:#B45309">⚡ submit event</div>
+          <div class="wei-flow-arrow">→</div>
+          <div class="wei-flow-node" style="background:#FDF0F5;color:#C2185B">📡 POST /auth/login</div>
+          <div class="wei-flow-arrow">→</div>
+          <div class="wei-flow-node" style="background:#F1F5F9;color:#334155">✅ Session Created</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Functionality to Elements Mapping -->
+    <div class="section-hd" style="margin-top:32px">
+      <h3 class="section-title" style="font-size:18px">Functionality → Element Map</h3>
+      <div class="section-line"></div>
+      <span class="section-count">17 functionalities</span>
+    </div>
+    <div class="wei-func-grid" id="weiFuncGrid"></div>
+
+    <!-- Universal Web Element Categories -->
+    <div class="section-hd" style="margin-top:32px">
+      <h3 class="section-title" style="font-size:18px">Universal Web Element Categories</h3>
+      <div class="section-line"></div>
+      <span class="section-count">6 categories</span>
+    </div>
+    <div class="wei-uelcat-grid" id="weiUelcatGrid"></div>
+
+    <!-- Mental Model -->
+    <div class="section-hd" style="margin-top:32px">
+      <h3 class="section-title" style="font-size:18px">The 5-Layer Mental Model</h3>
+      <div class="section-line"></div>
+    </div>
+    <div class="wei-mental-card">
+      <div style="font-size:14px;color:var(--text-secondary);margin-bottom:4px;max-width:600px;line-height:1.65">Every digital functionality needs five visible layers to be complete. Missing any layer means broken UX, failed QA, or lost business outcome.</div>
+      <div class="wei-layers-list">
+        <div class="wei-layer-row">
+          <div class="wei-layer-num-badge" style="background:#2563EB">1</div>
+          <div class="wei-layer-label">Capture Intent</div>
+          <div class="wei-layer-example">Input fields, selectors, search bars, date pickers</div>
+        </div>
+        <div class="wei-layer-row">
+          <div class="wei-layer-num-badge" style="background:#0D9166">2</div>
+          <div class="wei-layer-label">Guide Action</div>
+          <div class="wei-layer-example">Steppers, tooltips, validation hints, CTAs, breadcrumbs</div>
+        </div>
+        <div class="wei-layer-row">
+          <div class="wei-layer-num-badge" style="background:#B45309">3</div>
+          <div class="wei-layer-label">Trigger Event</div>
+          <div class="wei-layer-example">Submit button, confirm button, pay button, send button</div>
+        </div>
+        <div class="wei-layer-row">
+          <div class="wei-layer-num-badge" style="background:#7C3AED">4</div>
+          <div class="wei-layer-label">Show System State</div>
+          <div class="wei-layer-example">Loading spinner, progress bar, skeleton loader, status badge</div>
+        </div>
+        <div class="wei-layer-row">
+          <div class="wei-layer-num-badge" style="background:#C2185B">5</div>
+          <div class="wei-layer-label">Confirm Outcome</div>
+          <div class="wei-layer-example">Success screen, confirmation dialog, toast notification, receipt</div>
+        </div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px;margin-top:8px">Example: Payment — All 5 Layers</div>
+      <div class="wei-payment-model">
+        <div class="wei-pm-step" style="background:#EEF3FF;border-color:#93C5FD">
+          <div class="wei-pm-step-num">LAYER 1</div>
+          <div class="wei-pm-step-icon">🛒</div>
+          <div class="wei-pm-step-name">Capture Intent</div>
+          <div class="wei-pm-step-val">Cart + Address + Payment method selector</div>
+        </div>
+        <div class="wei-pm-step" style="background:#EDFAF3;border-color:#6EE7B7">
+          <div class="wei-pm-step-num">LAYER 2</div>
+          <div class="wei-pm-step-icon">👣</div>
+          <div class="wei-pm-step-name">Guide Action</div>
+          <div class="wei-pm-step-val">Checkout stepper with step indicators</div>
+        </div>
+        <div class="wei-pm-step" style="background:#FEF3E2;border-color:#FCD34D">
+          <div class="wei-pm-step-num">LAYER 3</div>
+          <div class="wei-pm-step-icon">💳</div>
+          <div class="wei-pm-step-name">Trigger Event</div>
+          <div class="wei-pm-step-val">Pay Now button → POST /payments</div>
+        </div>
+        <div class="wei-pm-step" style="background:#F3EFFF;border-color:#C4B5FD">
+          <div class="wei-pm-step-num">LAYER 4</div>
+          <div class="wei-pm-step-icon">⏳</div>
+          <div class="wei-pm-step-name">Show State</div>
+          <div class="wei-pm-step-val">Processing spinner + button disabled state</div>
+        </div>
+        <div class="wei-pm-step" style="background:#EDFAF3;border-color:#6EE7B7">
+          <div class="wei-pm-step-num">LAYER 5</div>
+          <div class="wei-pm-step-icon">✅</div>
+          <div class="wei-pm-step-name">Confirm Outcome</div>
+          <div class="wei-pm-step-val">Payment success screen + email receipt</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QA Lens for Web Elements -->
+    <div class="section-hd" style="margin-top:32px">
+      <h3 class="section-title" style="font-size:18px">QA Intelligence Lens for Web Elements</h3>
+      <div class="section-line"></div>
+    </div>
+    <div class="wei-intro-card" style="padding:24px">
+      <div style="font-size:13.5px;color:var(--text-secondary);margin-bottom:20px;line-height:1.65">For every web element in every functionality, the QA Intelligence Engine must verify ten dimensions of correctness. A button that renders but doesn't trigger the right API is a broken business outcome, not just a UI bug.</div>
+      <div class="wei-qa-grid">
+        <div class="wei-qa-item"><div class="wei-qa-icon">👁️</div><div class="wei-qa-q">Is it visible?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">✅</div><div class="wei-qa-q">Is it enabled?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">♿</div><div class="wei-qa-q">Is it accessible?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">🔍</div><div class="wei-qa-q">Is it validated?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">🔗</div><div class="wei-qa-q">Connected to right event/API?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">🛡️</div><div class="wei-qa-q">Is it secure?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">📱</div><div class="wei-qa-q">Is it responsive?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">💬</div><div class="wei-qa-q">Is feedback clear?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">⚠️</div><div class="wei-qa-q">Is failure handled?</div></div>
+        <div class="wei-qa-item"><div class="wei-qa-icon">🎯</div><div class="wei-qa-q">Business outcome reached?</div></div>
+      </div>
+    </div>
+
+    <!-- Button ≠ Button Insight Card -->
+    <div class="wei-insight-card">
+      <div class="wei-insight-eyebrow">Premium Intelligence Insight</div>
+      <div class="wei-insight-headline"><em>"Pay Now"</em> is Not a Button.</div>
+      <div class="wei-insight-sub">A single web element like "Pay Now" carries eight simultaneous business roles. When your QA tests it as a UI element, it fails to catch seven of them. When your AI agent understands its business meaning, it can test all eight.</div>
+      <div class="wei-button-roles">
+        <div class="wei-btn-role" style="background:#EEF3FF;border-color:#93C5FD">
+          <div class="wei-btn-role-icon">💰</div>
+          <div class="wei-btn-role-title">Revenue Trigger</div>
+          <div class="wei-btn-role-desc">Initiates the monetization event. Failure = direct revenue loss.</div>
+        </div>
+        <div class="wei-btn-role" style="background:#FEF2F2;border-color:#FECACA">
+          <div class="wei-btn-role-icon">⚠️</div>
+          <div class="wei-btn-role-title">Risk Point</div>
+          <div class="wei-btn-role-desc">Double-click risk, race condition vulnerability, fraud surface.</div>
+        </div>
+        <div class="wei-btn-role" style="background:#F0FDF4;border-color:#BBF7D0">
+          <div class="wei-btn-role-icon">📡</div>
+          <div class="wei-btn-role-title">API Initiator</div>
+          <div class="wei-btn-role-desc">Fires POST /payments — must carry right payload, auth token, idempotency key.</div>
+        </div>
+        <div class="wei-btn-role" style="background:#FFF7ED;border-color:#FED7AA">
+          <div class="wei-btn-role-icon">🤝</div>
+          <div class="wei-btn-role-title">Trust Moment</div>
+          <div class="wei-btn-role-desc">User is committing real money. Design, copy, and security signals must inspire confidence.</div>
+        </div>
+        <div class="wei-btn-role" style="background:#F3EFFF;border-color:#DDD6FE">
+          <div class="wei-btn-role-icon">🧠</div>
+          <div class="wei-btn-role-title">User Decision Point</div>
+          <div class="wei-btn-role-desc">The final moment of cognitive commitment. Friction here causes cart abandonment.</div>
+        </div>
+        <div class="wei-btn-role" style="background:#ECFEFF;border-color:#A5F3FC">
+          <div class="wei-btn-role-icon">📊</div>
+          <div class="wei-btn-role-title">Analytics Event</div>
+          <div class="wei-btn-role-desc">Must fire purchase_attempted event to analytics pipeline for conversion tracking.</div>
+        </div>
+        <div class="wei-btn-role" style="background:#FDF2F8;border-color:#F9A8D4">
+          <div class="wei-btn-role-icon">🕵️</div>
+          <div class="wei-btn-role-title">Fraud-Sensitive Node</div>
+          <div class="wei-btn-role-desc">ML fraud scoring must run before completing the transaction. Rate limiting applies.</div>
+        </div>
+        <div class="wei-btn-role" style="background:#EDFAF3;border-color:#6EE7B7">
+          <div class="wei-btn-role-icon">🎯</div>
+          <div class="wei-btn-role-title">Business Outcome Gateway</div>
+          <div class="wei-btn-role-desc">This single element gates the entire business value exchange. Its health = business health.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- xCognitives Web Layer -->
+    <div class="wei-xcog-add">
+      <div class="wei-xcog-add-title">xCognitives: Web Element Intelligence Applications</div>
+      <div class="wei-xcog-add-sub">This layer enables xCognitives to build a new class of intelligence tools that understand UI not as pixels, but as business meaning — connecting every visible element to its functional, API, and business context.</div>
+      <div class="wei-xcog-caps" id="weiXcogCaps"></div>
+    </div>
+
+  </section>
+
+  <!-- XCOGNITIVES -->
+  <section id="section-xcognitives">
+    <div class="section-hd">
+      <h2 class="section-title">xCognitives Opportunity Map</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="xcog-card">
+      <div class="xcog-eyebrow">🧠 Future Architecture</div>
+      <div class="xcog-title">How <em>xCognitives</em> Builds the<br>Intelligent Business OS</div>
+      <div class="xcog-desc">xCognitives uses these 13 digital functionality categories as raw intelligence material to build reusable AI modules, autonomous agents, and business digitization systems that any company can deploy, customize, and evolve.</div>
+      <div class="xcog-modules">
+        <div class="xcog-module">
+          <div class="xcog-module-icon">🧩</div>
+          <div class="xcog-module-title">Reusable Intelligence Modules</div>
+          <div class="xcog-module-text">Pre-built, tested, AI-enhanced functionality blocks for Identity, Search, Payments, and more — ready to plug into any business architecture.</div>
+        </div>
+        <div class="xcog-module">
+          <div class="xcog-module-icon">🤖</div>
+          <div class="xcog-module-title">AI-Powered Digitization Systems</div>
+          <div class="xcog-module-text">Rapid business digitization using intelligent templates: an e-commerce engine, a clinic platform, a logistics OS — all built on these 13 capability layers.</div>
+        </div>
+        <div class="xcog-module">
+          <div class="xcog-module-icon">🔬</div>
+          <div class="xcog-module-title">QA Intelligence Engine</div>
+          <div class="xcog-module-text">Testing is not checkbox compliance — it is functionality consciousness. Every workflow stage gets AI-powered coverage, risk scoring, and anomaly detection.</div>
+        </div>
+        <div class="xcog-module">
+          <div class="xcog-module-icon">🗺️</div>
+          <div class="xcog-module-title">Functionality Consciousness Maps</div>
+          <div class="xcog-module-text">Visual, interactive capability maps for clients showing exactly what they have, what's missing, what risks exist, and what AI can unlock.</div>
+        </div>
+        <div class="xcog-module">
+          <div class="xcog-module-icon">🏭</div>
+          <div class="xcog-module-title">Industry-Wise AI Agents</div>
+          <div class="xcog-module-text">Specialized agents for banking, healthcare, logistics, education — each trained on the industry-specific functionality set and business rules.</div>
+        </div>
+        <div class="xcog-module">
+          <div class="xcog-module-icon">📊</div>
+          <div class="xcog-module-title">Business Operating Dashboards</div>
+          <div class="xcog-module-text">Executive-grade live dashboards that show digital health, capability coverage, QA status, AI readiness, and revenue impact in real time.</div>
+        </div>
+      </div>
+      <div class="xcog-capabilities">
+        <span class="xcog-cap">Functionality Intelligence</span>
+        <span class="xcog-cap">AI Agent Architecture</span>
+        <span class="xcog-cap">Business Digitization</span>
+        <span class="xcog-cap">QA Consciousness</span>
+        <span class="xcog-cap">Digital OS Design</span>
+        <span class="xcog-cap">Industry AI Systems</span>
+        <span class="xcog-cap">Executive Intelligence Maps</span>
+        <span class="xcog-cap">Future-Ready Infrastructure</span>
+        <span class="xcog-cap">Reusable AI Modules</span>
+        <span class="xcog-cap">Risk Intelligence</span>
+        <span class="xcog-cap">Revenue Engineering</span>
+        <span class="xcog-cap">Autonomous Workflows</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIGITAL OS VIEW -->
+  <section id="section-os">
+    <div class="section-hd">
+      <h2 class="section-title">The Complete Digital Business OS</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="os-card">
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:24px;max-width:640px;line-height:1.7">When all 13 capability categories work together, they form a complete digital operating system — five layers that transform raw business intent into intelligent, automated, trusted digital experiences.</p>
+      <div class="os-layers">
+        <div class="os-layer" style="background:#EEF3FF">
+          <div class="os-layer-num">L1</div>
+          <div class="os-layer-bar" style="background:#2563EB"></div>
+          <div class="os-layer-info">
+            <div class="os-layer-name">Identity & Trust Layer</div>
+            <div class="os-layer-cats">Identity & Access · Trust, Security & Compliance · Infrastructure</div>
+          </div>
+          <div class="os-layer-pct">Foundation</div>
+        </div>
+        <div class="os-layer" style="background:#EDFAF3">
+          <div class="os-layer-num">L2</div>
+          <div class="os-layer-bar" style="background:#0D9166"></div>
+          <div class="os-layer-info">
+            <div class="os-layer-name">Engagement & Discovery Layer</div>
+            <div class="os-layer-cats">Search & Discovery · Communication · Profile & Personalization</div>
+          </div>
+          <div class="os-layer-pct">User Layer</div>
+        </div>
+        <div class="os-layer" style="background:#FEF3E2">
+          <div class="os-layer-num">L3</div>
+          <div class="os-layer-bar" style="background:#B45309"></div>
+          <div class="os-layer-info">
+            <div class="os-layer-name">Value & Transaction Layer</div>
+            <div class="os-layer-cats">Transaction & Payment · Content Management · Workflow & Automation</div>
+          </div>
+          <div class="os-layer-pct">Revenue Layer</div>
+        </div>
+        <div class="os-layer" style="background:#F3EFFF">
+          <div class="os-layer-num">L4</div>
+          <div class="os-layer-bar" style="background:#7C3AED"></div>
+          <div class="os-layer-info">
+            <div class="os-layer-name">Intelligence & Insight Layer</div>
+            <div class="os-layer-cats">Data & Intelligence · AI-Native Functionalities</div>
+          </div>
+          <div class="os-layer-pct">AI Layer</div>
+        </div>
+        <div class="os-layer" style="background:#FDF0F5">
+          <div class="os-layer-num">L5</div>
+          <div class="os-layer-bar" style="background:#C2185B"></div>
+          <div class="os-layer-info">
+            <div class="os-layer-name">Specialization & Evolution Layer</div>
+            <div class="os-layer-cats">Industry-Specific Functionalities · Human-Centric Future Functionalities</div>
+          </div>
+          <div class="os-layer-pct">Future Layer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /content-area -->
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">Digital Functionality Intelligence OS</div>
+  <div class="footer-right">Business Digitization Capability Map · 13 Categories · 130+ Functionalities · 5 Intelligence Lenses</div>
+</footer>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const CATEGORIES = [
+  {
+    id: "cat-0",
+    num: "CAT-01",
+    name: "Identity & Access Functionalities",
+    icon: "🔐",
+    color: "#2563EB",
+    colorSoft: "#EEF3FF",
+    tags: ["security","user-facing","foundation"],
+    filters: ["security","user"],
+    desc: "Controls who can access the system, what they can do, and how their identity is verified and maintained.",
+    examples: ["Login","Signup","Logout","Password Reset","MFA / 2FA","OAuth / SSO","Biometric Auth","Role-Based Access","Session Management","Device Trust","Identity Verification","Account Recovery"],
+    does: "Establishes and enforces digital identity — verifying who a user is, granting appropriate permissions, and maintaining secure session continuity across devices.",
+    matters: "Every other functionality depends on knowing who the user is. A breach here compromises everything: data, transactions, reputation, and regulatory standing.",
+    business: "Reduces fraud-related losses. Enables tiered pricing through role-based features. Builds the trust foundation required for any transactional relationship.",
+    qa: "Test edge cases: expired tokens, concurrent sessions, account lockout flows, MFA bypass attempts, OAuth state parameter integrity, session fixation, and privilege escalation. High risk = high test coverage.",
+    ai: "AI can detect anomalous login patterns, predict account takeover attempts, enable continuous authentication, and build adaptive trust scoring that eliminates friction for trusted users.",
+    revenue: "Directly enables revenue through gated premium access. Reduces fraud churn. SSO reduces enterprise sales friction. Biometric reduces abandoned checkouts.",
+    future: "Decentralized identity (DID), zero-knowledge proofs, ambient authentication, behavioral biometrics, and AI-managed trust contexts replacing static passwords entirely.",
+    industries: ["Fintech","Healthcare","E-commerce","Enterprise SaaS","Government","Telecom"],
+    scores: { bv: 95, qa: 92, ai: 78, rev: 82, fut: 88 }
+  },
+  {
+    id: "cat-1",
+    num: "CAT-02",
+    name: "Search & Discovery Functionalities",
+    icon: "🔍",
+    color: "#0D9166",
+    colorSoft: "#EDFAF3",
+    tags: ["user-facing","revenue","engagement"],
+    filters: ["revenue","user"],
+    desc: "Helps users find exactly what they need — from simple keyword search to AI-powered semantic discovery.",
+    examples: ["Search Bar","Smart Search","Filters","Sorting","Recommendations","Auto Suggestions","Semantic Search","Voice Search","Visual Search","Trending Discovery","Category Navigation","Tag-Based Discovery"],
+    does: "Reduces the gap between user intent and content or product discovery. Organizes vast digital inventories into navigable, personalized experiences.",
+    matters: "Users who cannot find what they need leave. Discovery directly controls conversion rates, content consumption, and time-on-platform.",
+    business: "Search effectiveness is directly proportional to revenue in e-commerce. Poor search = lost GMV. Excellent search + recommendations = upsell and cross-sell.",
+    qa: "Test relevance scoring, filter combinatorics, empty state handling, typo tolerance, multilingual queries, search latency under load, and ranking fairness across inventory.",
+    ai: "AI transforms search from keyword matching to intent understanding. Vector search, LLM query rewriting, visual search via embeddings, and personalized ranking create discovery that feels like intuition.",
+    revenue: "Amazon estimates that 35% of its revenue comes from its recommendation engine. Search is arguably the highest-ROI functionality in any digital commerce system.",
+    future: "Conversational search (ask in natural language), multi-modal search (image+text+voice combined), predictive discovery (showing users what they want before they search).",
+    industries: ["E-commerce","Content Platforms","SaaS Marketplaces","Recruitment","Healthcare","Travel"],
+    scores: { bv: 93, qa: 85, ai: 95, rev: 92, fut: 91 }
+  },
+  {
+    id: "cat-2",
+    num: "CAT-03",
+    name: "Communication Functionalities",
+    icon: "💬",
+    color: "#B45309",
+    colorSoft: "#FEF3E2",
+    tags: ["user-facing","engagement","retention"],
+    filters: ["user"],
+    desc: "All channels through which users, businesses, and systems communicate — from real-time chat to async notifications.",
+    examples: ["Messaging","Chat Systems","Notifications","Email Engine","Push Notifications","Video Calling","Voice Calling","Live Streaming","Comments","Forums","AI Chatbots","Ticket Conversations"],
+    does: "Creates the communication fabric of a digital product — connecting users with each other, with support teams, and with automated system updates.",
+    matters: "Engagement and retention are fundamentally communication problems. Products that communicate well retain users longer and resolve problems faster.",
+    business: "Reduces support costs through self-service AI chat. Drives repeat engagement through smart notifications. Enables B2B through in-app communication replacing email chaos.",
+    qa: "Test message delivery guarantees, notification deduplication, real-time latency, push token management, email deliverability, chat history retrieval, and AI chatbot accuracy with adversarial inputs.",
+    ai: "AI chatbots handle 70%+ of tier-1 support. Sentiment analysis routes escalations. Smart notification timing (optimal send time prediction) dramatically improves open rates.",
+    revenue: "Push notifications have 7x higher CTR than email. Live chat increases conversion 45%. AI support bots reduce cost-per-ticket by 60–80%.",
+    future: "Ambient notifications (context-aware, non-intrusive), AI-mediated communication (AI drafts, sends, and summarizes on your behalf), voice-first interfaces.",
+    industries: ["Consumer Apps","E-commerce","SaaS","Healthcare","Fintech","Education","Gaming"],
+    scores: { bv: 88, qa: 82, ai: 90, rev: 79, fut: 85 }
+  },
+  {
+    id: "cat-3",
+    num: "CAT-04",
+    name: "Transaction & Payment Functionalities",
+    icon: "💳",
+    color: "#C2185B",
+    colorSoft: "#FDF0F5",
+    tags: ["revenue","critical","user-facing"],
+    filters: ["revenue","user"],
+    desc: "The complete financial transaction stack — from cart to checkout to settlement to reconciliation.",
+    examples: ["Shopping Cart","Checkout","Payment Gateway","Wallet System","Refund Engine","Subscription Billing","EMI Systems","Invoice Generation","Tax Calculation","Coupon Engine","Escrow System","Split Payments"],
+    does: "Captures, processes, and settles financial value exchanges between users, merchants, and platforms. The monetization engine of any digital business.",
+    matters: "This is where value is captured. Any friction, failure, or trust loss here directly destroys revenue. A 1-second checkout delay reduces conversions by 7%.",
+    business: "Core revenue engine. Subscription billing enables predictable ARR. Wallet and escrow systems enable platform marketplace models with high GMV.",
+    qa: "Payment flows require the most rigorous testing: double-charge prevention, refund idempotency, gateway timeout handling, tax calculation accuracy by jurisdiction, PCI-DSS compliance, and concurrency testing on inventory.",
+    ai: "AI fraud detection at payment time, dynamic pricing, intelligent coupon eligibility, subscription churn prediction, smart payment retry logic, and anomaly detection on transaction patterns.",
+    revenue: "This IS revenue. Every 1% improvement in checkout conversion can mean millions. Subscription billing reduces customer acquisition cost amortization over LTV.",
+    future: "Real-time settlements via blockchain rails, AI-managed subscriptions, programmable money flows, biometric payment authorization, embedded finance in any surface.",
+    industries: ["E-commerce","Fintech","SaaS","Healthcare","Logistics","Marketplaces","Gaming"],
+    scores: { bv: 98, qa: 98, ai: 85, rev: 99, fut: 88 }
+  },
+  {
+    id: "cat-4",
+    num: "CAT-05",
+    name: "User Profile & Personalization",
+    icon: "👤",
+    color: "#7C3AED",
+    colorSoft: "#F3EFFF",
+    tags: ["user-facing","engagement","ai"],
+    filters: ["user","ai"],
+    desc: "Everything about knowing the user — their identity, preferences, behavior, and how the product adapts to them.",
+    examples: ["User Profiles","Preferences","AI Personalization","Watch History","Saved Items","Favorites/Wishlist","Recommendation Engine","Behavioral Tracking","Adaptive UI","Smart Feeds"],
+    does: "Builds a rich, evolving model of each user — their identity, preferences, behavior, and context — and uses it to adapt every aspect of the product experience.",
+    matters: "Personalization is the difference between a product that feels generic and one that feels indispensable. Netflix without recommendations is just a video list.",
+    business: "Personalization drives 20–30% lift in engagement. Recommendation engines generate substantial incremental revenue. Adaptive UI reduces support and onboarding friction.",
+    qa: "Test profile data consistency across sessions and devices, personalization fairness (no discriminatory outputs), recommendation diversity, cold-start behavior for new users, and privacy compliance.",
+    ai: "Personalization IS AI. Collaborative filtering, content-based models, reinforcement learning from user behavior, large-scale embedding models, and real-time context adaptation.",
+    revenue: "Spotify's Discover Weekly drives 25% of listening time. Amazon's 'customers also bought' generates 35% of revenue. Personalization is a proven revenue multiplier.",
+    future: "Anticipatory systems (product changes before you ask), digital identity twins, cross-platform behavioral continuity, emotion-aware personalization.",
+    industries: ["Streaming","E-commerce","News/Media","SaaS","Social Platforms","Education","Healthcare"],
+    scores: { bv: 90, qa: 80, ai: 97, rev: 88, fut: 94 }
+  },
+  {
+    id: "cat-5",
+    num: "CAT-06",
+    name: "Content Management Functionalities",
+    icon: "📝",
+    color: "#0F766E",
+    colorSoft: "#EFFAF9",
+    tags: ["operational","engagement","platform"],
+    filters: ["user"],
+    desc: "The system for creating, organizing, publishing, and governing all digital content across a product.",
+    examples: ["CMS","Media Upload","Rich Text Editor","Publishing Workflow","Draft Management","Version Control","Asset Library","Content Moderation","AI Content Generation","Localization"],
+    does: "Manages the full lifecycle of digital content — from creation to publishing to archival — while maintaining governance, versioning, and multi-channel distribution.",
+    matters: "Content is the core value proposition for most digital businesses. Poor CMS means slow publishing, inconsistent brand, and inability to scale content operations.",
+    business: "Enables content-led growth strategies. Localization unlocks global markets. AI content generation multiplies content output without proportional cost increase.",
+    qa: "Test version conflict resolution, large media upload handling, workflow state transitions, moderation accuracy, localization completeness, and CDN cache invalidation on publish.",
+    ai: "AI content generation, automated moderation using vision and NLP models, SEO optimization suggestions, auto-translation, content performance prediction before publishing.",
+    revenue: "Content quality directly affects SEO and organic traffic. Localization multiplies addressable market. AI generation reduces content production cost by 60–80%.",
+    future: "Generative content pipelines (brief to published in minutes), AI editorial judgment, real-time localization, personalized content variants per user segment.",
+    industries: ["Media & Publishing","E-commerce","SaaS","Education","Healthcare","Government","Retail"],
+    scores: { bv: 82, qa: 75, ai: 89, rev: 76, fut: 87 }
+  },
+  {
+    id: "cat-6",
+    num: "CAT-07",
+    name: "Workflow & Process Automation",
+    icon: "⚙️",
+    color: "#D97706",
+    colorSoft: "#FEF9EC",
+    tags: ["operational","efficiency","ai"],
+    filters: ["infrastructure","ai"],
+    desc: "Digitizes and automates business processes — turning manual operations into intelligent, trackable workflows.",
+    examples: ["Task Management","Approval Flows","BPM Workflow","Scheduling","Rule Engines","SLA Tracking","Automation Bots","Ticket Lifecycle","Escalation Systems","AI Agents"],
+    does: "Replaces manual, error-prone human processes with structured digital workflows that can be tracked, measured, audited, and progressively automated.",
+    matters: "Operational efficiency determines profitability at scale. Without workflow automation, businesses hit a human-capacity ceiling that prevents scaling.",
+    business: "Reduces operational cost. Improves SLA adherence. Enables consistent service delivery. Creates the audit trails required for enterprise compliance.",
+    qa: "Test workflow state machine completeness, approval escalation paths, rule engine condition coverage, SLA timer accuracy, concurrent process handling, and edge case routing.",
+    ai: "AI agents autonomously execute multi-step workflows. Intelligent routing decides which path a task takes. Anomaly detection flags stuck or at-risk workflows before SLA breach.",
+    revenue: "Direct cost reduction: automating a support workflow can reduce labor cost by 40–60%. Faster approvals accelerate revenue recognition in B2B contexts.",
+    future: "Fully autonomous AI workflows (humans only handle exceptions), self-healing processes that detect and fix errors, natural language workflow programming.",
+    industries: ["Enterprise SaaS","Banking","Healthcare","Logistics","Insurance","Government","Manufacturing"],
+    scores: { bv: 86, qa: 83, ai: 92, rev: 80, fut: 90 }
+  },
+  {
+    id: "cat-7",
+    num: "CAT-08",
+    name: "Data & Intelligence Functionalities",
+    icon: "📊",
+    color: "#1D4ED8",
+    colorSoft: "#EFF4FF",
+    tags: ["intelligence","foundation","ai"],
+    filters: ["ai","infrastructure"],
+    desc: "The data backbone — capturing, storing, analyzing, and converting all business data into actionable intelligence.",
+    examples: ["Analytics Dashboard","Reporting Engine","KPI Tracking","Data Warehousing","Real-Time Monitoring","AI Prediction","Recommendation AI","Fraud Detection","Anomaly Detection","Decision Intelligence"],
+    does: "Transforms raw event data into structured intelligence: metrics, predictions, recommendations, and automated decisions that improve every other functionality layer.",
+    matters: "Data is the compound interest of digital business. Companies that build strong data foundations create compounding competitive advantages that are nearly impossible to replicate.",
+    business: "Enables data-driven decisions at all levels. Fraud detection directly protects revenue. Predictive analytics enables proactive action vs reactive response.",
+    qa: "Test data pipeline accuracy, dashboard calculation correctness, real-time metric latency, model prediction accuracy and drift, anomaly detection precision/recall, and warehouse query performance.",
+    ai: "This category IS AI infrastructure. Every ML model, LLM, recommendation engine, and intelligent feature depends on the data quality and pipelines built here.",
+    revenue: "Fraud detection saves revenue. Predictive inventory reduces waste. Data-driven marketing improves ROI. Analytics enables pricing optimization.",
+    future: "Real-time ML inference everywhere, AutoML for non-technical users, data mesh architectures, vector databases powering semantic intelligence across the entire product.",
+    industries: ["All digital businesses","Fintech","Retail","Healthcare","Logistics","Media","Manufacturing"],
+    scores: { bv: 91, qa: 87, ai: 99, rev: 83, fut: 96 }
+  },
+  {
+    id: "cat-8",
+    num: "CAT-09",
+    name: "Trust, Security & Compliance",
+    icon: "🛡️",
+    color: "#DC2626",
+    colorSoft: "#FEF2F2",
+    tags: ["security","compliance","critical"],
+    filters: ["security"],
+    desc: "Protects users, data, and business continuity against threats, fraud, and regulatory violations.",
+    examples: ["Encryption","Audit Logs","Fraud Prevention","Threat Detection","Consent Management","GDPR Compliance","Access Logs","Rate Limiting","CAPTCHA","Zero Trust Systems"],
+    does: "Creates the multi-layered security posture required to protect sensitive data, prevent unauthorized access, detect threats in real time, and maintain regulatory compliance.",
+    matters: "A single breach can destroy years of trust-building. Regulatory non-compliance carries existential fines. Security is not optional — it is the foundation of digital business.",
+    business: "Security is risk management at scale. GDPR fines can reach 4% of global annual turnover. Enterprise deals require security certifications. Breaches cause stock price declines.",
+    qa: "Security testing is a category of its own: penetration testing, SAST/DAST, fuzzing, compliance audits, access log integrity, rate limiting effectiveness, and zero-trust validation.",
+    ai: "AI-powered threat detection identifies novel attack patterns. Behavioral analytics catches fraud that rules miss. AI can monitor thousands of signals simultaneously for anomaly detection.",
+    revenue: "Security as a feature commands premium pricing in B2B. Compliance certifications unlock enterprise segments. Breach prevention directly protects revenue continuity.",
+    future: "Zero trust architecture becoming default, AI vs AI security battles (offensive AI met with defensive AI), privacy-enhancing computation, and quantum-safe cryptography.",
+    industries: ["Fintech","Healthcare","Government","Enterprise SaaS","E-commerce","Telecom","Defense"],
+    scores: { bv: 94, qa: 99, ai: 88, rev: 78, fut: 92 }
+  },
+  {
+    id: "cat-9",
+    num: "CAT-10",
+    name: "Operational Infrastructure",
+    icon: "🏗️",
+    color: "#6B7280",
+    colorSoft: "#F9FAFB",
+    tags: ["infrastructure","foundation","platform"],
+    filters: ["infrastructure"],
+    desc: "The invisible backbone that makes everything else possible — reliability, scale, performance, and resilience.",
+    examples: ["Load Balancing","Caching","CDN","Queue Systems","Auto Scaling","Backup & Recovery","Observability","Health Monitoring","Deployment Pipelines","Failover Systems"],
+    does: "Provides the scalable, reliable, observable infrastructure layer that ensures every other functionality works at any scale, in any geography, under any load.",
+    matters: "Infrastructure failures manifest as business failures. 1 hour of downtime for a large e-commerce site can cost millions. Users have zero tolerance for slow or unavailable products.",
+    business: "Uptime is directly tied to revenue. Infrastructure cost efficiency affects margins. Auto-scaling enables growth without infrastructure risk.",
+    qa: "Chaos engineering, load testing, failover simulations, backup restoration tests, deployment pipeline validation, observability coverage, and SLA compliance under peak conditions.",
+    ai: "AIOps: AI predicts failures before they occur, auto-scales based on predicted traffic patterns, auto-remediates common issues, and optimizes resource allocation in real time.",
+    revenue: "Infrastructure cost is the second-largest cost center for most tech companies. Efficiency here directly impacts profitability. Reliability directly enables revenue protection.",
+    future: "Self-healing infrastructure managed entirely by AI ops agents, serverless-first architectures, edge computing bringing processing to users, intelligent resource arbitrage.",
+    industries: ["All technology businesses","Cloud providers","Fintech","Gaming","Media streaming","Logistics"],
+    scores: { bv: 87, qa: 90, ai: 82, rev: 74, fut: 88 }
+  },
+  {
+    id: "cat-10",
+    num: "CAT-11",
+    name: "AI-Native Functionalities",
+    icon: "🤖",
+    color: "#7C3AED",
+    colorSoft: "#F3EFFF",
+    tags: ["ai","future","intelligence"],
+    filters: ["ai","future"],
+    desc: "Functionalities that exist only because of AI — not retrofits, but capabilities born from intelligence itself.",
+    examples: ["AI Copilot","Autonomous Agents","Context Memory","Intent Detection","Emotional Intelligence AI","AI Decision Layer","Multi-Agent Collaboration","Predictive Interfaces","Natural Language Control","Self-Healing Systems"],
+    does: "Introduces a new class of product capabilities that were simply impossible before AI: systems that understand context, remember history, execute autonomously, and anticipate user needs.",
+    matters: "AI-native functionalities are the competitive moat of the next decade. They are not features — they are new interaction paradigms that redefine what a product is.",
+    business: "Creates defensible differentiation. Enables 10x productivity gains for users. Unlocks new revenue models (AI-as-a-service, outcome-based pricing). Attracts enterprise buyers.",
+    qa: "AI testing requires new frameworks: hallucination detection, context drift testing, agent loop integrity, memory accuracy, adversarial prompt testing, and value alignment verification.",
+    ai: "This category IS AI. The QA challenge is not traditional — it requires evaluating probabilistic systems, measuring emergent behavior, and testing reasoning chains rather than deterministic outputs.",
+    revenue: "AI copilots command premium pricing. Autonomous agents reduce headcount requirements. Predictive interfaces improve conversion. AI-native features justify enterprise tier pricing.",
+    future: "General-purpose AI agents that manage entire workflows, multi-agent collaboration ecosystems, AI that co-designs and co-builds new features, persistent cognitive models per user.",
+    industries: ["SaaS platforms","Knowledge work","Healthcare AI","Legal tech","Code platforms","Financial advisory"],
+    scores: { bv: 92, qa: 85, ai: 100, rev: 89, fut: 99 }
+  },
+  {
+    id: "cat-11",
+    num: "CAT-12",
+    name: "Industry-Specific Functionalities",
+    icon: "🏭",
+    color: "#0891B2",
+    colorSoft: "#ECFEFF",
+    tags: ["specialized","vertical","compliance"],
+    filters: ["revenue"],
+    desc: "Domain-specific capabilities that address the unique operational, regulatory, and workflow needs of particular industries.",
+    examples: ["Banking: Payments, AML, KYC","Healthcare: EMR, diagnostics","E-commerce: Inventory, shipping","Logistics: Route optimization","Education: LMS, assessments","Real Estate: Property listings","Manufacturing: IoT monitoring","Insurance: Claims automation","Telecom: Usage billing","Government: Citizen services"],
+    does: "Addresses the unique, often regulated, domain-specific operational requirements that generic platforms cannot fulfill — the deep functionality that makes a product truly fit-for-purpose in a vertical.",
+    matters: "Industry-specific functionality is what wins enterprise deals in those verticals. Hospitals do not buy generic workflow tools — they buy systems that understand EMR, HL7, and clinical workflows.",
+    business: "Vertical SaaS commands 5–10x higher willingness-to-pay than horizontal tools. Regulatory compliance is table-stakes. Deep domain knowledge creates sustainable competitive moats.",
+    qa: "Industry-specific testing requires domain expertise: HIPAA compliance for healthcare, PCI for payments, FHIR conformance testing, AML rule accuracy, clinical decision support validation.",
+    ai: "Industry AI agents trained on domain data: medical AI for diagnostics, fraud AI for banking, supply chain AI for logistics. These are high-value, highly specialized AI applications.",
+    revenue: "Vertical SaaS has 3–5x higher NRR (Net Revenue Retention) because switching costs are enormous. Industry-specific functionality creates strong lock-in and pricing power.",
+    future: "AI that is natively trained on industry-specific data, regulation-aware autonomous agents, real-time compliance engines, and industry knowledge graphs powering intelligent decisions.",
+    industries: ["Banking","Healthcare","E-commerce","Logistics","Education","Real Estate","Manufacturing","Insurance","Telecom","Government"],
+    scores: { bv: 95, qa: 91, ai: 88, rev: 93, fut: 87 }
+  },
+  {
+    id: "cat-12",
+    num: "CAT-13",
+    name: "Human-Centric Future Functionalities",
+    icon: "🌱",
+    color: "#9D174D",
+    colorSoft: "#FDF2F8",
+    tags: ["future","human","ai"],
+    filters: ["future","ai"],
+    desc: "The frontier of human-computer interaction — systems designed around human cognition, emotion, and life context.",
+    examples: ["Context-Aware Systems","Calm Interfaces","AI Life Orchestration","Digital Twin Systems","Human Intent Prediction","Adaptive Learning Systems","Memory-Based Computing","Conscious Workflows","Human-AI Collaboration","Ambient Computing"],
+    does: "Shifts the paradigm from users adapting to computers, to computers adapting to humans — building systems that understand context, learn continuously, and enhance human capability rather than replace it.",
+    matters: "The next frontier of digital value is not more features, but better fit to human life. Systems that feel like thought partners rather than tools will define the next generation of digital products.",
+    business: "Creates products so deeply embedded in human workflows that switching is unthinkable. Enables entirely new product categories that don't exist yet. Attracts talent and investment.",
+    qa: "Testing human-centric systems requires behavioral evaluation, long-term context accuracy, emotional response calibration, adaptive learning correctness, and ethical alignment auditing.",
+    ai: "This category requires AGI-adjacent capabilities: persistent memory, contextual reasoning across long time horizons, emotional intelligence, multi-modal understanding, and life-context modeling.",
+    revenue: "Early movers in ambient computing and AI life orchestration will capture enormous value. Digital twins for business processes represent a multi-trillion-dollar opportunity.",
+    future: "This IS the future. Ambient computing, spatial interfaces, brain-computer interfaces, fully personalized digital environments, and AI systems that grow with you over decades.",
+    industries: ["Consumer technology","Healthcare","Education","Enterprise productivity","Smart home","Wearables","Future-of-work platforms"],
+    scores: { bv: 80, qa: 70, ai: 96, rev: 72, fut: 100 }
+  }
+];
+
+// ─── RENDER TREE ────────────────────────────────────────────────────────────
+function renderTree() {
+  const grid = document.getElementById('treeGrid');
+  grid.innerHTML = CATEGORIES.map(cat => `
+    <div class="tree-node" onclick="scrollToCard('${cat.id}')" style="border-color:${cat.color}22">
+      <div class="tree-node-num">${cat.num}</div>
+      <div class="tree-node-name">${cat.icon} ${cat.name}</div>
+      <div class="tree-node-count">${cat.examples.length} functionalities</div>
+      <div class="tree-node-bar" style="background:${cat.color}"></div>
+    </div>
+  `).join('');
+}
+
+function scrollToCard(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!el.classList.contains('open')) {
+      el.classList.add('open');
+    }
+  }
+}
+
+// ─── RENDER CATEGORIES ───────────────────────────────────────────────────────
+function renderCategories() {
+  const grid = document.getElementById('categoriesGrid');
+  grid.innerHTML = CATEGORIES.map((cat, idx) => `
+    <div class="cat-card" id="${cat.id}" data-filters="${cat.filters.join(',')}">
+      <div class="cat-header" onclick="toggleCard('${cat.id}')">
+        <div class="cat-icon" style="background:${cat.colorSoft}; color:${cat.color}">${cat.icon}</div>
+        <div class="cat-info">
+          <div class="cat-num">${cat.num}</div>
+          <div class="cat-name">${cat.name}</div>
+          <div class="cat-desc">${cat.desc}</div>
+          <div class="cat-meta">
+            ${cat.tags.map(t => `<span class="tag" style="background:${cat.colorSoft};color:${cat.color}">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div class="cat-toggle">+</div>
+      </div>
+      <div class="cat-body">
+        <div class="cat-tabs">
+          <div class="cat-tab active" onclick="switchTab('${cat.id}','overview',this)">Overview</div>
+          <div class="cat-tab" onclick="switchTab('${cat.id}','business',this)">Business Value</div>
+          <div class="cat-tab" onclick="switchTab('${cat.id}','qa',this)">QA Lens</div>
+          <div class="cat-tab" onclick="switchTab('${cat.id}','ai',this)">AI Opportunity</div>
+          <div class="cat-tab" onclick="switchTab('${cat.id}','revenue',this)">Revenue Impact</div>
+          <div class="cat-tab" onclick="switchTab('${cat.id}','future',this)">Future Evolution</div>
+        </div>
+        <div class="cat-panel active" id="${cat.id}-overview">
+          <div class="panel-heading">Examples</div>
+          <div class="examples-grid">${cat.examples.map(e => `<span class="example-pill">${e}</span>`).join('')}</div>
+          <div class="info-row">
+            <div class="info-block">
+              <div class="info-block-label">What it does</div>
+              <div class="info-block-text">${cat.does}</div>
+            </div>
+            <div class="info-block">
+              <div class="info-block-label">Why it matters</div>
+              <div class="info-block-text">${cat.matters}</div>
+            </div>
+          </div>
+          <div class="panel-heading" style="margin-top:8px">Industries</div>
+          <div class="industries-row" style="padding-left:0">
+            ${cat.industries.map(i => `<span class="ind-chip">${i}</span>`).join('')}
+          </div>
+          <div style="margin-top:16px">
+            ${renderScoreRow('Business Value', cat.scores.bv, cat.color)}
+            ${renderScoreRow('QA Importance', cat.scores.qa, '#DC2626')}
+            ${renderScoreRow('AI Opportunity', cat.scores.ai, '#7C3AED')}
+            ${renderScoreRow('Revenue Impact', cat.scores.rev, '#0D9166')}
+            ${renderScoreRow('Future Relevance', cat.scores.fut, '#B45309')}
+          </div>
+        </div>
+        <div class="cat-panel" id="${cat.id}-business">
+          <div class="lens-section">
+            <div class="lens-header">
+              <div class="lens-icon" style="background:${cat.colorSoft};color:${cat.color}">💼</div>
+              <div class="lens-title">Business Value Lens</div>
+            </div>
+            <div class="lens-text">${cat.business}</div>
+            ${renderScoreBar(cat.scores.bv, cat.color)}
+          </div>
+        </div>
+        <div class="cat-panel" id="${cat.id}-qa">
+          <div class="lens-section">
+            <div class="lens-header">
+              <div class="lens-icon" style="background:#FEF2F2;color:#DC2626">🔬</div>
+              <div class="lens-title">QA Testing Lens</div>
+            </div>
+            <div class="lens-text">${cat.qa}</div>
+            ${renderScoreBar(cat.scores.qa, '#DC2626')}
+          </div>
+        </div>
+        <div class="cat-panel" id="${cat.id}-ai">
+          <div class="lens-section">
+            <div class="lens-header">
+              <div class="lens-icon" style="background:#F3EFFF;color:#7C3AED">🤖</div>
+              <div class="lens-title">AI Agent Opportunity</div>
+            </div>
+            <div class="lens-text">${cat.ai}</div>
+            ${renderScoreBar(cat.scores.ai, '#7C3AED')}
+          </div>
+        </div>
+        <div class="cat-panel" id="${cat.id}-revenue">
+          <div class="lens-section">
+            <div class="lens-header">
+              <div class="lens-icon" style="background:#EDFAF3;color:#0D9166">💰</div>
+              <div class="lens-title">Revenue Impact Lens</div>
+            </div>
+            <div class="lens-text">${cat.revenue}</div>
+            ${renderScoreBar(cat.scores.rev, '#0D9166')}
+          </div>
+        </div>
+        <div class="cat-panel" id="${cat.id}-future">
+          <div class="lens-section">
+            <div class="lens-header">
+              <div class="lens-icon" style="background:#FEF3E2;color:#B45309">🔮</div>
+              <div class="lens-title">Future Evolution Lens</div>
+            </div>
+            <div class="lens-text">${cat.future}</div>
+            ${renderScoreBar(cat.scores.fut, '#B45309')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderScoreRow(label, score, color) {
+  return `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <div style="font-size:11px;color:var(--text-muted);width:120px;flex-shrink:0">${label}</div>
+      <div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden">
+        <div style="width:${score}%;height:100%;background:${color};border-radius:3px"></div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);width:28px;text-align:right">${score}</div>
+    </div>
+  `;
+}
+
+function renderScoreBar(score, color) {
+  return `
+    <div class="score-bar-wrap" style="margin-top:12px">
+      <div style="font-size:11px;color:var(--text-muted);width:100px">Score</div>
+      <div class="score-bar">
+        <div class="score-fill" style="width:${score}%;background:${color}"></div>
+      </div>
+      <div class="score-label">${score}</div>
+    </div>
+  `;
+}
+
+// ─── INTERACTIONS ────────────────────────────────────────────────────────────
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+function switchTab(catId, panel, tabEl) {
+  const card = document.getElementById(catId);
+  card.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  card.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
+  tabEl.classList.add('active');
+  const panelEl = document.getElementById(`${catId}-${panel}`);
+  if (panelEl) panelEl.classList.add('active');
+}
+
+function expandAll() {
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.add('open'));
+}
+
+function collapseAll() {
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('open'));
+}
+
+// ─── FILTER ──────────────────────────────────────────────────────────────────
+document.getElementById('filterBar').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('filter-chip')) return;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  e.target.classList.add('active');
+  const filter = e.target.dataset.filter;
+  document.querySelectorAll('.cat-card').forEach(card => {
+    if (filter === 'all') {
+      card.classList.remove('hidden');
+    } else {
+      const filters = card.dataset.filters || '';
+      card.classList.toggle('hidden', !filters.includes(filter));
+    }
+  });
+});
+
+// ─── SEARCH ──────────────────────────────────────────────────────────────────
+let searchTimeout;
+document.getElementById('globalSearch').addEventListener('input', function() {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => doSearch(this.value), 200);
+});
+
+function doSearch(query) {
+  const panel = document.getElementById('searchResultsPanel');
+  const q = query.trim().toLowerCase();
+
+  // Reset filter chips
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  document.querySelector('.filter-chip[data-filter="all"]').classList.add('active');
+
+  if (!q) {
+    panel.style.display = 'none';
+    document.querySelectorAll('.cat-card').forEach(c => {
+      c.classList.remove('hidden');
+      // Remove highlights
+      c.querySelectorAll('.example-pill').forEach(p => {
+        p.innerHTML = p.textContent;
+      });
+    });
+    return;
+  }
+
+  const results = [];
+  CATEGORIES.forEach(cat => {
+    // Check category name
+    if (cat.name.toLowerCase().includes(q)) {
+      results.push({ name: cat.name, cat: cat.name, id: cat.id, type: 'category' });
+    }
+    // Check examples
+    cat.examples.forEach(ex => {
+      if (ex.toLowerCase().includes(q)) {
+        results.push({ name: ex, cat: cat.name, id: cat.id, type: 'functionality' });
+      }
+    });
+    // Check text fields
+    ['does','matters','business','qa','ai','revenue','future'].forEach(field => {
+      if (cat[field] && cat[field].toLowerCase().includes(q) && !results.find(r => r.id === cat.id && r.type === 'category')) {
+        results.push({ name: cat.name + ' (description match)', cat: cat.name, id: cat.id, type: 'content' });
+      }
+    });
+  });
+
+  // Hide non-matching cards
+  const matchingIds = [...new Set(results.map(r => r.id))];
+  document.querySelectorAll('.cat-card').forEach(c => {
+    c.classList.toggle('hidden', !matchingIds.includes(c.id));
+  });
+
+  if (results.length === 0) {
+    panel.innerHTML = `<div class="no-results">No functionalities found for "<strong>${query}</strong>"</div>`;
+    panel.style.display = 'block';
+    return;
+  }
+
+  panel.innerHTML = `
+    <div class="search-results">
+      <div class="search-results-header">Found ${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"</div>
+      ${results.slice(0, 10).map(r => `
+        <div class="search-result-item" onclick="scrollToCard('${r.id}')">
+          <div class="search-result-name">${r.name}</div>
+          <div class="search-result-cat">${r.cat} · ${r.type}</div>
+        </div>
+      `).join('')}
+      ${results.length > 10 ? `<div style="padding:10px 20px;font-size:11px;color:var(--text-muted)">+ ${results.length - 10} more results</div>` : ''}
+    </div>
+  `;
+  panel.style.display = 'block';
+}
+
+// ─── WEB ELEMENT DATA ────────────────────────────────────────────────────────
+const WEI_FUNCTIONS = [
+  {
+    id: 'wf-login', icon: '🔐', name: 'Login', color: '#2563EB', colorSoft: '#EEF3FF',
+    intent: 'User wants to access their account securely',
+    elements: ['Email field','Password field','Login button','Remember me checkbox','Forgot password link','Error message','Loading spinner','OTP input (2FA)'],
+    events: ['submit','click','input','focus'],
+    apis: ['POST /auth/login','POST /auth/mfa/verify'],
+    outcome: 'Session created, JWT token issued, user redirected'
+  },
+  {
+    id: 'wf-signup', icon: '📝', name: 'Signup / Registration', color: '#0D9166', colorSoft: '#EDFAF3',
+    intent: 'User wants to create a new account',
+    elements: ['Name field','Email field','Password field','Confirm password field','Terms checkbox','Signup button','OTP input','Phone field','Social auth button'],
+    events: ['submit','click','change','blur'],
+    apis: ['POST /auth/register','POST /auth/send-otp','POST /auth/verify-email'],
+    outcome: 'Account created, verification email sent, profile initialized'
+  },
+  {
+    id: 'wf-search', icon: '🔍', name: 'Search & Discovery', color: '#0D9166', colorSoft: '#EDFAF3',
+    intent: 'User wants to find a product, content, or service',
+    elements: ['Search input','Search button','Filter panel','Sort dropdown','Result cards','Pagination','Category tabs','Auto-suggest dropdown','Empty state'],
+    events: ['input','click','keydown (Enter)','change'],
+    apis: ['GET /search?q=','GET /filters','GET /categories'],
+    outcome: 'Relevant results displayed, user discovers item of interest'
+  },
+  {
+    id: 'wf-payment', icon: '💳', name: 'Payment & Checkout', color: '#C2185B', colorSoft: '#FDF0F5',
+    intent: 'User wants to complete a purchase',
+    elements: ['Cart items list','Address form','Coupon field','Payment method radio buttons','Card number input','CVV field','Pay button','Confirmation screen','Order summary'],
+    events: ['click','submit','change','input'],
+    apis: ['POST /orders','POST /payments/charge','GET /coupons/validate','POST /payments/3ds'],
+    outcome: 'Payment captured, order created, confirmation sent'
+  },
+  {
+    id: 'wf-profile', icon: '👤', name: 'User Profile', color: '#7C3AED', colorSoft: '#F3EFFF',
+    intent: 'User wants to view or update their personal data',
+    elements: ['Avatar upload','Name field','Email field','Edit button','Save button','Preference toggles','Password change form','Delete account button'],
+    events: ['click','change','submit','dragover','drop'],
+    apis: ['GET /user/profile','PUT /user/profile','POST /user/avatar','PATCH /user/preferences'],
+    outcome: 'Profile updated, preferences saved, avatar changed'
+  },
+  {
+    id: 'wf-notification', icon: '🔔', name: 'Notifications', color: '#B45309', colorSoft: '#FEF3E2',
+    intent: 'User wants to see system updates and messages',
+    elements: ['Bell icon','Notification badge','Dropdown panel','Read/unread indicators','Mark all read button','Individual notification item','Dismiss button'],
+    events: ['click','WebSocket message','Server-Sent Event'],
+    apis: ['GET /notifications','PATCH /notifications/:id/read','DELETE /notifications/:id'],
+    outcome: 'User informed of relevant events, badge count updated'
+  },
+  {
+    id: 'wf-chat', icon: '💬', name: 'Chat & Messaging', color: '#B45309', colorSoft: '#FEF3E2',
+    intent: 'User wants to communicate in real time',
+    elements: ['Message input','Send button','Attachment icon','Emoji picker','Typing indicator','Message bubbles','Timestamp','Read receipt','Scroll to latest button'],
+    events: ['keydown (Enter)','click','WebSocket','paste','drop'],
+    apis: ['POST /messages','GET /messages?thread=','WebSocket /ws/chat'],
+    outcome: 'Message delivered, thread updated, recipient notified'
+  },
+  {
+    id: 'wf-dashboard', icon: '📊', name: 'Dashboard & Analytics', color: '#1D4ED8', colorSoft: '#EFF4FF',
+    intent: 'User wants to understand business performance',
+    elements: ['KPI cards','Line/bar charts','Data tables','Date range picker','Filter dropdowns','Export button','Drill-down links','Summary badges'],
+    events: ['click','change','resize'],
+    apis: ['GET /analytics/kpis','GET /reports?from=&to=','GET /metrics/realtime'],
+    outcome: 'Business intelligence displayed, decisions enabled'
+  },
+  {
+    id: 'wf-approval', icon: '✅', name: 'Workflow Approval', color: '#D97706', colorSoft: '#FEF9EC',
+    intent: 'Manager wants to review and approve a request',
+    elements: ['Request card','Approve button','Reject button','Comment box','Status badge','History timeline','Escalate button','Due date indicator'],
+    events: ['click','submit','change'],
+    apis: ['GET /workflow/requests','POST /workflow/:id/approve','POST /workflow/:id/reject','POST /workflow/:id/comment'],
+    outcome: 'Request approved/rejected, next workflow step triggered'
+  },
+  {
+    id: 'wf-upload', icon: '📤', name: 'File Upload', color: '#0F766E', colorSoft: '#EFFAF9',
+    intent: 'User wants to upload a document or media file',
+    elements: ['Upload button','Drag-drop zone','Progress bar','File preview','Remove button','File type validator','Size limit indicator'],
+    events: ['click','dragover','dragleave','drop','change'],
+    apis: ['POST /files/upload','GET /files/presigned-url','DELETE /files/:id'],
+    outcome: 'File stored, processed, linked to record'
+  },
+  {
+    id: 'wf-publishing', icon: '📰', name: 'Content Publishing', color: '#0F766E', colorSoft: '#EFFAF9',
+    intent: 'Editor wants to create and publish content',
+    elements: ['Rich text editor','Title field','Media uploader','Category selector','Tags input','Draft button','Publish button','Preview toggle','SEO fields'],
+    events: ['input','click','change','keydown'],
+    apis: ['POST /content/draft','PUT /content/:id','POST /content/:id/publish','POST /media/upload'],
+    outcome: 'Content live, indexed, visible to target audience'
+  },
+  {
+    id: 'wf-subscription', icon: '🔄', name: 'Subscription & Billing', color: '#C2185B', colorSoft: '#FDF0F5',
+    intent: 'User wants to subscribe to a service plan',
+    elements: ['Plan cards','Billing cycle toggle (monthly/annual)','Feature comparison table','Subscribe button','Payment form','Trial badge','Downgrade/upgrade button'],
+    events: ['click','change','submit'],
+    apis: ['POST /subscriptions','GET /plans','POST /payments/setup','PUT /subscriptions/:id'],
+    outcome: 'Subscription active, recurring billing established'
+  },
+  {
+    id: 'wf-kyc', icon: '🪪', name: 'KYC / Identity Verification', color: '#DC2626', colorSoft: '#FEF2F2',
+    intent: 'User needs to verify their identity for compliance',
+    elements: ['Document upload','Selfie capture (camera)','Identity fields (name/DOB)','Submit button','Verification status badge','Retry button','Progress indicator'],
+    events: ['click','change','submit','MediaStream (camera)'],
+    apis: ['POST /kyc/documents','POST /kyc/selfie','GET /kyc/status','POST /kyc/submit'],
+    outcome: 'Identity verified, account unlocked, compliance record created'
+  },
+  {
+    id: 'wf-aichat', icon: '🤖', name: 'AI Chatbot', color: '#7C3AED', colorSoft: '#F3EFFF',
+    intent: 'User wants intelligent, conversational assistance',
+    elements: ['Prompt input box','Send button','Conversation thread','Regenerate button','Thumbs up/down feedback','Copy response button','Suggested prompts','Typing animation'],
+    events: ['click','submit','keydown (Enter)'],
+    apis: ['POST /ai/chat','GET /ai/conversations/:id','POST /ai/feedback'],
+    outcome: 'User query answered, context maintained, feedback collected'
+  },
+  {
+    id: 'wf-recommend', icon: '⭐', name: 'Recommendations', color: '#0D9166', colorSoft: '#EDFAF3',
+    intent: 'User wants to discover relevant products or content',
+    elements: ['Product/content cards','Horizontal carousel','Rating stars','Save/wishlist button','Dismiss button','"Because you viewed" label','Skeleton loader'],
+    events: ['click','scroll','intersectionObserver'],
+    apis: ['GET /recommendations?userId=','POST /interactions/view','POST /interactions/save'],
+    outcome: 'Relevant items surfaced, engagement increased, conversion opportunity created'
+  },
+  {
+    id: 'wf-booking', icon: '📅', name: 'Booking & Scheduling', color: '#0891B2', colorSoft: '#ECFEFF',
+    intent: 'User wants to reserve a time slot or resource',
+    elements: ['Calendar picker','Time slot cards','Guest/attendee selector','Service selector','Notes textarea','Confirm button','Cancel policy text','Confirmation summary'],
+    events: ['click','change','submit'],
+    apis: ['GET /availability','POST /bookings','POST /bookings/:id/confirm','DELETE /bookings/:id'],
+    outcome: 'Booking confirmed, calendar updated, reminders scheduled'
+  },
+  {
+    id: 'wf-ticket', icon: '🎫', name: 'Support Ticket', color: '#6B7280', colorSoft: '#F9FAFB',
+    intent: 'User wants to report an issue and get help',
+    elements: ['Issue category dropdown','Description textarea','Attachment upload','Priority selector','Submit button','Status tracker','Reply thread','Close ticket button'],
+    events: ['click','change','submit'],
+    apis: ['POST /tickets','GET /tickets/:id','POST /tickets/:id/reply','PATCH /tickets/:id/status'],
+    outcome: 'Ticket created, assigned to agent, SLA timer started'
+  }
+];
+
+const WEI_ELEMENT_CATS = [
+  {
+    id: 'wec-input', icon: '✍️', name: 'Input Elements', color: '#2563EB', colorSoft: '#EEF3FF',
+    desc: 'Elements that capture raw user data and intent',
+    elements: ['Text input','Password input','Textarea','Select / Dropdown','Radio button','Checkbox','Toggle switch','Date picker','Time picker','File input','Range slider','OTP field','Phone input','Search input','Color picker','Number spinner']
+  },
+  {
+    id: 'wec-action', icon: '👆', name: 'Action Elements', color: '#C2185B', colorSoft: '#FDF0F5',
+    desc: 'Elements that trigger events and initiate API calls',
+    elements: ['Primary button','Secondary button','Link button','Icon button','Floating action button (FAB)','Menu item','CTA card','Destructive button','Toggle button','Split button','Loading button']
+  },
+  {
+    id: 'wec-nav', icon: '🧭', name: 'Navigation Elements', color: '#0F766E', colorSoft: '#EFFAF9',
+    desc: 'Elements that move users through the product',
+    elements: ['Top header / navbar','Sidebar','Tabs','Breadcrumbs','Pagination','Stepper / Wizard','Bottom navigation','Mega menu','Drawer / Side panel','Skip navigation (a11y)','Back button']
+  },
+  {
+    id: 'wec-display', icon: '🖥️', name: 'Display Elements', color: '#1D4ED8', colorSoft: '#EFF4FF',
+    desc: 'Elements that present data, content, and state',
+    elements: ['Card','Table / Data grid','List','Chart / Graph','Badge','Label / Chip','Tooltip','Modal / Dialog','Accordion','Timeline','Avatar','Image/Media','Stat card','Divider']
+  },
+  {
+    id: 'wec-feedback', icon: '📣', name: 'Feedback Elements', color: '#B45309', colorSoft: '#FEF3E2',
+    desc: 'Elements that communicate system state to the user',
+    elements: ['Error message','Success message','Warning alert','Loading spinner','Progress bar','Skeleton loader','Empty state','Confirmation dialog','Validation hint','Toast notification','Inline error','Banner alert']
+  },
+  {
+    id: 'wec-intelligence', icon: '🧠', name: 'Intelligence Elements', color: '#7C3AED', colorSoft: '#F3EFFF',
+    desc: 'AI-powered and smart elements that adapt to user context',
+    elements: ['Auto-suggest dropdown','Smart filters','Recommendation carousel','AI prompt box','Contextual tooltip','Inline validation (real-time)','Smart default values','Predictive chips','Did you mean?','Personalized feed','Smart search ranking','Anomaly highlight','Intent chip','Voice input','AI summary card']
+  }
+];
+
+const WEI_XCOG_CAPS = [
+  { icon: '🔬', title: 'Smarter QA Checklists', desc: 'Generate element-specific QA checklists that understand business context, not just technical properties.' },
+  { icon: '🎭', title: 'Playwright Locator Intelligence', desc: 'AI that understands which element maps to which business action — write tests in business language, not CSS selectors.' },
+  { icon: '🏢', title: 'Business-Aware UI Automation', desc: 'Automation that knows "Pay Now" = revenue trigger and applies fraud-aware, idempotency-safe test patterns automatically.' },
+  { icon: '🤖', title: 'AI Agents That Understand UI Meaning', desc: 'Agents navigate products by business intent, not by DOM structure — enabling resilient, context-aware automation.' },
+  { icon: '🗺️', title: 'Functionality-to-Element Traceability', desc: 'Visual maps showing exactly which web elements implement each business capability — critical for impact analysis.' },
+  { icon: '📡', title: 'Element → Event → API Intelligence Maps', desc: 'End-to-end traces connecting every visible element to its API contract, backend logic, and business outcome.' },
+  { icon: '📊', title: 'Quality Intelligence Dashboards', desc: 'Enterprise dashboards showing UI element coverage, risk scores, QA gaps, and business outcome completeness per functionality.' }
+];
+
+// ─── RENDER WEI FUNCTIONS ────────────────────────────────────────────────────
+function renderWeiFunctions() {
+  const grid = document.getElementById('weiFuncGrid');
+  if (!grid) return;
+  grid.innerHTML = WEI_FUNCTIONS.map(f => `
+    <div class="wei-func-card" id="${f.id}">
+      <div class="wei-func-header" onclick="toggleWeiFunc('${f.id}')">
+        <div class="wei-func-icon" style="background:${f.colorSoft};color:${f.color}">${f.icon}</div>
+        <div class="wei-func-name">${f.name}</div>
+        <div class="wei-func-count">${f.elements.length} elements</div>
+        <div class="wei-func-toggle">+</div>
+      </div>
+      <div class="wei-func-body">
+        <div class="wei-func-intent"><span>User Intent:</span> ${f.intent}</div>
+        <div class="panel-heading" style="margin-bottom:8px">Web Elements</div>
+        <div class="wei-elements-wrap">
+          ${f.elements.map(el => `<span class="wei-el-pill" style="background:${f.colorSoft};color:${f.color};border-color:${f.color}33">${el}</span>`).join('')}
+        </div>
+        <div class="panel-heading" style="margin-bottom:6px">Events & APIs</div>
+        <div class="wei-api-row">
+          ${f.events.map(ev => `<span class="wei-api-chip" style="background:#FFF7ED;border-color:#FED7AA;color:#92400E">⚡ ${ev}</span>`).join('')}
+          ${f.apis.map(api => `<span class="wei-api-chip">📡 ${api}</span>`).join('')}
+        </div>
+        <div style="margin-top:10px;padding:8px 12px;background:var(--bg);border-radius:6px;font-size:11.5px;color:var(--text-secondary)">
+          <span style="font-weight:600;color:var(--text-primary)">Outcome:</span> ${f.outcome}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleWeiFunc(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ─── RENDER WEI ELEMENT CATEGORIES ──────────────────────────────────────────
+function renderWeiUelcats() {
+  const grid = document.getElementById('weiUelcatGrid');
+  if (!grid) return;
+  grid.innerHTML = WEI_ELEMENT_CATS.map(cat => `
+    <div class="wei-uelcat-card" id="${cat.id}">
+      <div class="wei-uelcat-header" onclick="toggleWeiUelcat('${cat.id}')">
+        <div class="wei-uelcat-icon" style="background:${cat.colorSoft};color:${cat.color}">${cat.icon}</div>
+        <div class="wei-uelcat-info">
+          <div class="wei-uelcat-name">${cat.name}</div>
+          <div class="wei-uelcat-sub">${cat.desc}</div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);margin-right:8px">${cat.elements.length}</div>
+        <div class="wei-uelcat-toggle">+</div>
+      </div>
+      <div class="wei-uelcat-body">
+        <div class="wei-elements-wrap">
+          ${cat.elements.map(el => `<span class="wei-el-pill" style="background:${cat.colorSoft};color:${cat.color};border-color:${cat.color}33">${el}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleWeiUelcat(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ─── RENDER WEI XCOG CAPS ────────────────────────────────────────────────────
+function renderWeiXcogCaps() {
+  const grid = document.getElementById('weiXcogCaps');
+  if (!grid) return;
+  grid.innerHTML = WEI_XCOG_CAPS.map(cap => `
+    <div class="wei-xcog-cap-item">
+      <div class="wei-xcog-cap-icon">${cap.icon}</div>
+      <div>
+        <div class="wei-xcog-cap-title">${cap.title}</div>
+        <div class="wei-xcog-cap-desc">${cap.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── ENHANCED SEARCH WITH WEI DATA ──────────────────────────────────────────
+const _origDoSearch = doSearch;
+function doSearch(query) {
+  _origDoSearch(query);
+  const q = query.trim().toLowerCase();
+  if (!q) return;
+  const panel = document.getElementById('searchResultsPanel');
+  // Also search WEI functions
+  const weiResults = [];
+  WEI_FUNCTIONS.forEach(f => {
+    if (f.name.toLowerCase().includes(q)) {
+      weiResults.push({ name: f.name, cat: 'Web Element Layer', id: f.id, type: 'web-functionality' });
+    }
+    f.elements.forEach(el => {
+      if (el.toLowerCase().includes(q)) {
+        weiResults.push({ name: el, cat: f.name + ' (web element)', id: f.id, type: 'web-element' });
+      }
+    });
+  });
+  WEI_ELEMENT_CATS.forEach(cat => {
+    cat.elements.forEach(el => {
+      if (el.toLowerCase().includes(q)) {
+        weiResults.push({ name: el, cat: cat.name + ' category', id: cat.id, type: 'element-type' });
+      }
+    });
+  });
+  if (weiResults.length > 0 && panel.style.display !== 'none') {
+    // append to existing panel
+    const existing = panel.querySelector('.search-results');
+    if (existing) {
+      const extra = weiResults.slice(0, 5).map(r => `
+        <div class="search-result-item" onclick="scrollToWei('${r.id}')">
+          <div class="search-result-name">🧩 ${r.name}</div>
+          <div class="search-result-cat">${r.cat} · ${r.type}</div>
+        </div>
+      `).join('');
+      existing.innerHTML += extra;
+    }
+  } else if (weiResults.length > 0) {
+    panel.style.display = 'block';
+    panel.innerHTML = `
+      <div class="search-results">
+        <div class="search-results-header">Found ${weiResults.length} web element result${weiResults.length !== 1 ? 's' : ''} for "${query}"</div>
+        ${weiResults.slice(0, 8).map(r => `
+          <div class="search-result-item" onclick="scrollToWei('${r.id}')">
+            <div class="search-result-name">🧩 ${r.name}</div>
+            <div class="search-result-cat">${r.cat} · ${r.type}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+}
+
+function scrollToWei(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    document.getElementById('section-weblayer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('open');
+    }, 400);
+  }
+}
+
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.getAttribute('href') === `#${id}`);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+// ─── MOBILE NAV ──────────────────────────────────────────────────────────────
+document.getElementById('menuBtn').addEventListener('click', function() {
+  document.getElementById('leftNav').classList.toggle('open');
+});
+
+document.getElementById('leftNav').querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.getElementById('leftNav').classList.remove('open');
+  });
+});
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderTree();
+renderCategories();
+renderWeiFunctions();
+renderWeiUelcats();
+renderWeiXcogCaps();
+
+// Observe sections
+setTimeout(() => {
+  document.querySelectorAll('[id^="cat-"], [id^="section-"], [id^="wf-"], [id^="wec-"]').forEach(el => {
+    observer.observe(el);
+  });
+}, 500);
+</script>
+</body>
+</html>

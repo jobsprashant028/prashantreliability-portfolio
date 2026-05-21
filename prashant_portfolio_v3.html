@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prashant Kumar — Senior QA Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+:root{
+  --ink:       #0F1117;
+  --ink-2:     #3A3D47;
+  --ink-3:     #6B6F7B;
+  --ink-4:     #9EA3B0;
+  --rule:      #E8E9EC;
+  --rule-2:    #F2F3F5;
+  --surface:   #FFFFFF;
+  --surface-2: #F8F9FA;
+  --blue:      #1A56DB;
+  --blue-bg:   #EEF3FD;
+  --green:     #0F7553;
+  --green-bg:  #ECFAF4;
+  --amber:     #92400E;
+  --amber-bg:  #FFFBEB;
+  --purple:    #5B21B6;
+  --purple-bg: #F5F3FF;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Playfair Display', Georgia, serif;
+}
+body{
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--surface);
+}
+
+/* ── NAV ── */
+nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(5vw, 24px);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-logo{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.nav-logo span{ color: var(--blue); }
+.nav-links{
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a{
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.nav-links a:hover{ color: var(--ink); }
+.nav-cta{
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue);
+  text-decoration: none;
+  padding: 7px 16px;
+  border: 1px solid rgba(26,86,219,0.3);
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.nav-cta:hover{
+  background: var(--blue-bg);
+  border-color: var(--blue);
+}
+
+/* ── PAGE WRAPPER ── */
+.page{ max-width: 880px; margin: 0 auto; padding: 0 max(5vw, 24px); }
+
+/* ── HERO ── */
+#hero{
+  padding-top: 128px;
+  padding-bottom: 96px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-top-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.hero-available{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.01em;
+}
+.hero-available::before{
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+.hero-location{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ink-4);
+  font-weight: 400;
+}
+.hero-location svg{
+  width: 13px; height: 13px;
+  stroke: var(--ink-4);
+  fill: none;
+  stroke-width: 1.8;
+}
+h1{
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 60px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+h1 em{
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.hero-sub{
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--ink-3);
+  line-height: 1.65;
+  max-width: 580px;
+  margin-bottom: 12px;
+}
+.hero-accenture{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 40px;
+}
+.hero-accenture strong{
+  color: var(--ink);
+  font-weight: 600;
+}
+.hero-accenture-dot{
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--ink-4);
+  flex-shrink: 0;
+}
+.hero-stats{
+  display: flex;
+  gap: 40px;
+  padding: 28px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.stat-num{
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label{
+  font-size: 12px;
+  color: var(--ink-4);
+  font-weight: 400;
+}
+.hero-actions{ display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 7px;
+  text-decoration: none;
+  transition: all 0.15s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary{ background: var(--ink); color: white; }
+.btn-primary:hover{ background: #23262F; }
+.btn-secondary{
+  background: transparent;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+}
+.btn-secondary:hover{ border-color: var(--ink-3); color: var(--ink); }
+.btn svg{ width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+/* ── SECTION LAYOUT ── */
+.section{
+  padding: 80px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.section-meta{
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.section-label{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  padding-top: 6px;
+  position: sticky;
+  top: 72px;
+}
+h2{
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.5vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
+h2 em{ font-style: italic; font-weight: 500; color: var(--ink-3); }
+
+/* ── ABOUT ── */
+.about-body{
+  font-size: 15.5px;
+  color: var(--ink-2);
+  line-height: 1.8;
+  max-width: 600px;
+  margin-bottom: 28px;
+}
+.about-body p{ margin-bottom: 16px; }
+.about-body p:last-child{ margin-bottom: 0; }
+.about-principles{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+.principle-card{
+  padding: 18px 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.principle-title{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.principle-desc{
+  font-size: 12.5px;
+  color: var(--ink-3);
+  line-height: 1.55;
+}
+
+/* ── SKILLS ── */
+.skill-group{ margin-bottom: 24px; }
+.skill-group:last-child{ margin-bottom: 0; }
+.skill-group-name{
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+}
+.skill-tags{ display: flex; flex-wrap: wrap; gap: 7px; }
+.tag{
+  font-size: 12.5px;
+  font-weight: 400;
+  padding: 5px 12px;
+  border-radius: 5px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  line-height: 1;
+}
+.tag-blue{ background: var(--blue-bg); color: #1340A8; border-color: rgba(26,86,219,0.15); }
+
+/* ── EXPERIENCE ── */
+.employer-block{
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 24px 24px 8px;
+  margin-bottom: 32px;
+}
+.employer-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.employer-name{
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.employer-tenure{
+  font-size: 12px;
+  color: var(--ink-4);
+  font-weight: 400;
+}
+.employer-meta{
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+.employer-divider{
+  height: 1px;
+  background: var(--rule);
+  margin: 0 -24px 0;
+}
+.exp-list{ display: flex; flex-direction: column; }
+.exp-item{
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule-2);
+}
+.exp-item:last-child{ border-bottom: none; padding-bottom: 4px; }
+.exp-company{
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+.exp-role{
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 14px;
+}
+.exp-tags{ display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.exp-tag{
+  font-size: 11.5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--ink-3);
+  border: 1px solid var(--rule);
+  font-weight: 400;
+}
+.exp-bullets{ list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.exp-bullets li{
+  font-size: 14px;
+  color: var(--ink-2);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.65;
+}
+.exp-bullets li::before{
+  content: '';
+  position: absolute;
+  left: 0; top: 10px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--ink-4);
+}
+
+/* ── INITIATIVES ── */
+.initiative-list{ display: flex; flex-direction: column; gap: 0; }
+.initiative-item{
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule-2);
+}
+.initiative-item:last-child{ border-bottom: none; padding-bottom: 0; }
+.initiative-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.initiative-badge{
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--purple-bg);
+  color: var(--purple);
+  border: 1px solid rgba(91,33,182,0.15);
+}
+.initiative-title{
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.initiative-desc{
+  font-size: 13.5px;
+  color: var(--ink-3);
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+/* ── CERTIFICATIONS ── */
+.cert-list{ display: flex; flex-direction: column; }
+.cert-item{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule-2);
+}
+.cert-item:last-child{ border-bottom: none; }
+.cert-icon{
+  width: 40px; height: 40px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.cert-info{ flex: 1; }
+.cert-name{
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.cert-org{ font-size: 12.5px; color: var(--ink-4); }
+.badge{
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.badge-green{ background: var(--green-bg); color: var(--green); }
+.badge-amber{ background: var(--amber-bg); color: var(--amber); }
+
+/* ── CONTACT ── */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.contact-card{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.15s;
+  background: var(--surface);
+}
+.contact-card:hover{ border-color: var(--ink-3); background: var(--surface-2); }
+.contact-icon{
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-icon svg{
+  width: 15px; height: 15px;
+  stroke: var(--ink-2);
+  fill: none;
+  stroke-width: 1.8;
+}
+.contact-label{
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 1px;
+}
+.contact-value{ font-size: 13px; color: var(--ink); font-weight: 400; }
+
+/* ── FOOTER ── */
+footer{
+  padding: 36px max(5vw, 24px);
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid var(--rule);
+}
+.footer-name{
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+.footer-copy{ font-size: 12px; color: var(--ink-4); }
+
+/* ── REVEAL ANIMATION ── */
+.reveal{
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.in{ opacity: 1; transform: none; }
+.reveal-d1{ transition-delay: 0.08s; }
+.reveal-d2{ transition-delay: 0.16s; }
+.reveal-d3{ transition-delay: 0.24s; }
+
+/* ── FRAMEWORK CARD ── */
+.framework-card{
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--surface);
+}
+.framework-card:hover{
+  border-color: var(--ink-3);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.framework-card-header{
+  padding: 28px 28px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.framework-card-eyebrow{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.framework-tag{
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: var(--purple-bg);
+  color: var(--purple);
+  border: 1px solid rgba(91,33,182,0.15);
+}
+.framework-tag-blue{
+  background: var(--blue-bg);
+  color: var(--blue);
+  border-color: rgba(26,86,219,0.15);
+}
+.framework-card-title{
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.framework-card-desc{
+  font-size: 14px;
+  color: var(--ink-3);
+  line-height: 1.7;
+  max-width: 520px;
+}
+.framework-card-body{
+  padding: 24px 28px;
+  background: var(--surface-2);
+}
+.framework-pillars{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.framework-pillar{
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.framework-pillar-title{
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.framework-pillar-desc{
+  font-size: 11.5px;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+.framework-card-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.framework-meta{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.framework-meta-item{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--ink-4);
+}
+.framework-meta-item svg{
+  width: 13px; height: 13px;
+  stroke: var(--ink-4);
+  fill: none;
+  stroke-width: 1.8;
+}
+.btn-framework{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 7px;
+  text-decoration: none;
+  background: var(--ink);
+  color: white;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.btn-framework:hover{ background: #23262F; }
+.btn-framework svg{ width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 680px){
+  .section-meta{ grid-template-columns: 1fr; gap: 16px; }
+  .section-label{ position: static; }
+  .contact-grid{ grid-template-columns: 1fr; }
+  .hero-stats{ gap: 24px; }
+  .about-principles{ grid-template-columns: 1fr; }
+  .nav-links{ display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Prashant <span>Kumar</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#initiatives">Initiatives</a></li>
+    <li><a href="#thinking">Thinking</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:jobsprashant028@gmail.com" class="nav-cta">Get in touch</a>
+</nav>
+
+<main class="page">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-top-row">
+      <div class="hero-available">Open to senior QA &amp; reliability engineering roles</div>
+      <div class="hero-location">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Bengaluru, India &nbsp;·&nbsp; IST (UTC+5:30) &nbsp;·&nbsp; Open to global &amp; remote
+      </div>
+    </div>
+
+    <h1>Quality Engineering<br><em>at enterprise scale.</em></h1>
+
+    <p class="hero-sub">9 years delivering reliable, well-tested software across payment infrastructure, IoT ecosystems, and national smart grid systems — for some of the world's most demanding clients.</p>
+
+    <div class="hero-accenture">
+      <strong>Accenture</strong>
+      <div class="hero-accenture-dot"></div>
+      Senior QA Professional
+      <div class="hero-accenture-dot"></div>
+      9-year tenure
+      <div class="hero-accenture-dot"></div>
+      ISTQB Certified
+    </div>
+
+    <div class="hero-stats reveal">
+      <div class="stat">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Enterprise engagements</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Global industry domains</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">CTFL</div>
+        <div class="stat-label">ISTQB certified</div>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#experience" class="btn btn-primary">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        View experience
+      </a>
+      <a href="mailto:jobsprashant028@gmail.com" class="btn btn-secondary">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        jobsprashant028@gmail.com
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="section-meta">
+      <div class="section-label">About</div>
+      <div>
+        <h2>How I think about <em>quality</em></h2>
+
+        <div class="about-body reveal">
+          <p>I approach quality engineering as a systems discipline — not a checklist. My job isn't to find bugs at the end of a sprint; it's to understand the architecture, map the risk surface, and design validation strategies that give teams genuine confidence before they ship.</p>
+          <p>Over 9 years at Accenture, I've worked across domains where the cost of a defect isn't just a user complaint — it's a failed transaction on a national payment platform, a misread sensor on smart infrastructure, or a broken workflow on a system serving millions. That context sharpens how you think about thoroughness, precision, and what "good enough" actually means.</p>
+          <p>Right now I'm deepening my focus on AI-augmented quality engineering — exploring how intelligent tooling, predictive coverage models, and autonomous test orchestration can evolve the QA function from reactive gatekeeper to proactive quality intelligence.</p>
+        </div>
+
+        <div class="about-principles">
+          <div class="principle-card reveal reveal-d1">
+            <div class="principle-title">Systems thinking</div>
+            <div class="principle-desc">Understanding architecture and data flow before writing a single test case.</div>
+          </div>
+          <div class="principle-card reveal reveal-d2">
+            <div class="principle-title">Risk-oriented coverage</div>
+            <div class="principle-desc">Prioritising what matters to the business, not chasing arbitrary metrics.</div>
+          </div>
+          <div class="principle-card reveal reveal-d1">
+            <div class="principle-title">Release confidence</div>
+            <div class="principle-desc">Communicating quality as a clear, evidence-based signal to leadership.</div>
+          </div>
+          <div class="principle-card reveal reveal-d2">
+            <div class="principle-title">Automation with purpose</div>
+            <div class="principle-desc">Automation that reduces risk and toil — not automation for its own sake.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="section-meta">
+      <div class="section-label">Technical skills</div>
+      <div>
+        <h2>Capabilities &amp; <em>tooling</em></h2>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Test automation</div>
+          <div class="skill-tags">
+            <span class="tag tag-blue">Playwright</span>
+            <span class="tag tag-blue">SoapUI</span>
+            <span class="tag tag-blue">Protractor</span>
+            <span class="tag">Groovy scripting</span>
+            <span class="tag">Selenium concepts</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-name">API &amp; integration testing</div>
+          <div class="skill-tags">
+            <span class="tag tag-blue">Postman</span>
+            <span class="tag tag-blue">REST APIs</span>
+            <span class="tag tag-blue">SOAP APIs</span>
+            <span class="tag">JSON validation</span>
+            <span class="tag">Third-party integration QA</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Testing disciplines</div>
+          <div class="skill-tags">
+            <span class="tag">Functional</span>
+            <span class="tag">Regression</span>
+            <span class="tag">End-to-end</span>
+            <span class="tag">Smoke &amp; sanity</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">UAT support</span>
+            <span class="tag">Database testing</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Toolchain &amp; infrastructure</div>
+          <div class="skill-tags">
+            <span class="tag">Jenkins</span>
+            <span class="tag">JIRA</span>
+            <span class="tag">Git / GitHub</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Power BI</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Domain expertise</div>
+          <div class="skill-tags">
+            <span class="tag">BFSI / Payments</span>
+            <span class="tag">IoT platforms</span>
+            <span class="tag">Smart infrastructure</span>
+            <span class="tag">Distributed systems</span>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Strategy &amp; leadership</div>
+          <div class="skill-tags">
+            <span class="tag">QA lifecycle management</span>
+            <span class="tag">Release risk analysis</span>
+            <span class="tag">Enterprise quality governance</span>
+            <span class="tag">AI-augmented QA</span>
+            <span class="tag">Cross-functional collaboration</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section-meta">
+      <div class="section-label">Work history</div>
+      <div>
+        <h2>Enterprise <em>engagements</em></h2>
+
+        <!-- Accenture employer block -->
+        <div class="employer-block reveal">
+          <div class="employer-header">
+            <div class="employer-name">Accenture</div>
+            <div class="employer-tenure">9 years &nbsp;·&nbsp; Bengaluru, India</div>
+          </div>
+          <div class="employer-meta">Senior QA Professional &nbsp;·&nbsp; Global Delivery &nbsp;·&nbsp; Enterprise Clients</div>
+          <div class="employer-divider"></div>
+
+          <div class="exp-list">
+
+            <div class="exp-item reveal">
+              <div class="exp-company">Walt Disney Parks &amp; Resorts</div>
+              <div class="exp-role">QA Engineer — Enterprise UI &amp; API Automation</div>
+              <div class="exp-tags">
+                <span class="exp-tag">SoapUI</span>
+                <span class="exp-tag">Groovy scripting</span>
+                <span class="exp-tag">API testing</span>
+                <span class="exp-tag">Manual testing</span>
+                <span class="exp-tag">JIRA</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Designed and executed API automation suites using SoapUI and Groovy, validating complex backend integrations powering customer-facing enterprise workflows across Disney Parks.</li>
+                <li>Managed full defect lifecycle in JIRA — creation, triage, retest, and closure — coordinating across development, product, and release teams.</li>
+                <li>Delivered sprint-based regression cycles ensuring production readiness and quality sign-off across multiple parallel release streams.</li>
+              </ul>
+            </div>
+
+            <div class="exp-item reveal">
+              <div class="exp-company">Sadad Payment Platform</div>
+              <div class="exp-role">API QA Engineer — BFSI &nbsp;·&nbsp; Kingdom of Saudi Arabia</div>
+              <div class="exp-tags">
+                <span class="exp-tag">REST APIs</span>
+                <span class="exp-tag">Postman</span>
+                <span class="exp-tag">SoapUI</span>
+                <span class="exp-tag">SQL</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Validated mission-critical payment APIs on a national-scale BFSI platform processing high volumes of financial transactions across the Kingdom of Saudi Arabia.</li>
+                <li>Tested high-risk scenarios including complex multi-party payment flows, edge-case transaction combinations, and third-party biller integration chains — ensuring zero-defect tolerance in production-critical paths.</li>
+                <li>Performed SQL-based database validation to verify end-to-end transaction integrity and reconciliation accuracy across payment records.</li>
+                <li>Collaborated directly with senior integration stakeholders to define test scope, manage critical defect escalation, and deliver UAT readiness on tight regulatory timelines.</li>
+              </ul>
+            </div>
+
+            <div class="exp-item reveal">
+              <div class="exp-company">Unilever Smart Coffee Vending Platform</div>
+              <div class="exp-role">QA Engineer — IoT &amp; Mobile</div>
+              <div class="exp-tags">
+                <span class="exp-tag">Protractor</span>
+                <span class="exp-tag">Mobile testing</span>
+                <span class="exp-tag">Web testing</span>
+                <span class="exp-tag">IoT validation</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Validated predictive maintenance workflows across an IoT-connected vending ecosystem — covering technician-facing mobile apps and operational web dashboards at scale.</li>
+                <li>Built reusable Protractor automation scripts that accelerated regression coverage and reduced manual testing effort across release cycles.</li>
+                <li>Participated in direct client-facing discussions with Unilever leadership — communicating test status, risk areas, and release confidence at a programme level.</li>
+              </ul>
+            </div>
+
+            <div class="exp-item reveal">
+              <div class="exp-company">SmartDCC Smart Meter Ecosystem</div>
+              <div class="exp-role">QA / Data Validation Engineer — National Smart Infrastructure, UK</div>
+              <div class="exp-tags">
+                <span class="exp-tag">SQL</span>
+                <span class="exp-tag">Power BI</span>
+                <span class="exp-tag">Data validation</span>
+                <span class="exp-tag">Distributed systems</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Performed end-to-end validation of distributed data flows across large-scale national smart meter infrastructure, ensuring data consistency and correctness at scale.</li>
+                <li>Used SQL and Power BI for analytics-oriented QA reporting, surfacing inconsistencies across multi-system distributed pipelines serving UK energy infrastructure.</li>
+                <li>Identified structural data quality gaps that improved downstream reliability and data integrity across critical national infrastructure workflows.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STRATEGIC INITIATIVES -->
+  <section id="initiatives" class="section">
+    <div class="section-meta">
+      <div class="section-label">Research &amp; initiatives</div>
+      <div>
+        <h2>Independent <em>thinking</em></h2>
+        <p style="font-size:14px;color:var(--ink-3);margin-bottom:32px;line-height:1.65;max-width:520px;">Beyond delivery, I invest time in understanding where the quality engineering discipline is heading — and building frameworks for what comes next.</p>
+
+        <div class="initiative-list">
+
+          <div class="initiative-item reveal">
+            <div class="initiative-header">
+              <span class="initiative-badge">AI &amp; Automation</span>
+              <div class="initiative-title">AI-Augmented QA Systems</div>
+            </div>
+            <div class="initiative-desc">Researching intelligent QA operating models — cognitive testing frameworks, automation orchestration, and AI-agent-assisted STLC evolution. Focused on how AI shifts quality engineering from reactive validation to proactive risk intelligence.</div>
+          </div>
+
+          <div class="initiative-item reveal">
+            <div class="initiative-header">
+              <span class="initiative-badge">Architecture</span>
+              <div class="initiative-title">Enterprise QA Architecture Thinking</div>
+            </div>
+            <div class="initiative-desc">Developing structured lifecycle models around enterprise QA operations — business-risk-oriented quality assurance, release confidence frameworks, and aligning QA outputs with executive-level decision-making and operational risk reduction.</div>
+          </div>
+
+          <div class="initiative-item reveal">
+            <div class="initiative-header">
+              <span class="initiative-badge">Ecosystem</span>
+              <div class="initiative-title">Modern QA Ecosystem Research</div>
+            </div>
+            <div class="initiative-desc">Exploring scalable automation frameworks, distributed quality governance approaches, and intelligent test coverage strategies for complex modern software ecosystems — with a particular focus on BFSI and infrastructure-grade platforms.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THINKING & RESEARCH -->
+  <section id="thinking" class="section">
+    <div class="section-meta">
+      <div class="section-label">Thinking &amp; research</div>
+      <div>
+        <h2>Published <em>frameworks</em></h2>
+        <p style="font-size:14px;color:var(--ink-3);margin-bottom:28px;line-height:1.65;max-width:500px;">Original knowledge work built outside of client delivery — mapping how quality engineering connects to system architecture, business logic, and AI-driven automation.</p>
+
+        <div class="framework-card reveal">
+          <div class="framework-card-header">
+            <div class="framework-card-eyebrow">
+              <span class="framework-tag">Original Framework</span>
+              <span class="framework-tag framework-tag-blue">AI-Augmented QA</span>
+            </div>
+            <div class="framework-card-title">Digital Functionality Intelligence OS</div>
+            <div class="framework-card-desc">A comprehensive QA knowledge framework mapping software functionality to web element layers, API contracts, event chains, and AI-augmented quality strategy — built from 9 years of enterprise pattern recognition. Covers functionality trees, web element intelligence, backend API mapping, and cognitive QA systems thinking.</div>
+          </div>
+          <div class="framework-card-body">
+            <div class="framework-pillars">
+              <div class="framework-pillar">
+                <div class="framework-pillar-title">Functionality Intelligence</div>
+                <div class="framework-pillar-desc">Business capability trees mapped to testable system behaviours</div>
+              </div>
+              <div class="framework-pillar">
+                <div class="framework-pillar-title">Web Element Layer</div>
+                <div class="framework-pillar-desc">UI elements classified by intent, event type, and API contract</div>
+              </div>
+              <div class="framework-pillar">
+                <div class="framework-pillar-title">API Intelligence Maps</div>
+                <div class="framework-pillar-desc">End-to-end traces from visible element to backend outcome</div>
+              </div>
+              <div class="framework-pillar">
+                <div class="framework-pillar-title">AI-QA Strategy</div>
+                <div class="framework-pillar-desc">Cognitive automation, smart coverage, and quality intelligence dashboards</div>
+              </div>
+            </div>
+            <div class="framework-card-footer">
+              <div class="framework-meta">
+                <div class="framework-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Interactive framework
+                </div>
+                <div class="framework-meta-item">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Independent research
+                </div>
+                <div class="framework-meta-item">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  Built for senior QA &amp; engineering roles
+                </div>
+              </div>
+              <a href="digital-functionality-intelligence-os__1_.html" target="_blank" class="btn-framework">
+                Explore the framework
+                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section">
+    <div class="section-meta">
+      <div class="section-label">Credentials</div>
+      <div>
+        <h2>Certifications &amp; <em>education</em></h2>
+        <div class="cert-list reveal">
+
+          <div class="cert-item">
+            <div class="cert-icon">CTFL</div>
+            <div class="cert-info">
+              <div class="cert-name">ISTQB Certified Tester — Foundation Level</div>
+              <div class="cert-org">International Software Testing Qualifications Board</div>
+            </div>
+            <span class="badge badge-green">Certified</span>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-icon">AI</div>
+            <div class="cert-info">
+              <div class="cert-name">ISTQB AI Testing Certification</div>
+              <div class="cert-org">International Software Testing Qualifications Board</div>
+            </div>
+            <span class="badge badge-amber">In progress</span>
+          </div>
+
+          <div class="cert-item">
+            <div class="cert-icon">MCA</div>
+            <div class="cert-info">
+              <div class="cert-name">Master of Computer Applications (MCA)</div>
+              <div class="cert-org">Lal Bahadur Shastri Institute of Management, New Delhi &nbsp;·&nbsp; GGSIPU</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section" style="border-bottom:none;">
+    <div class="section-meta">
+      <div class="section-label">Contact</div>
+      <div>
+        <h2>Let's <em>talk</em></h2>
+        <p style="font-size:14px;color:var(--ink-3);margin-bottom:28px;max-width:460px;line-height:1.65;">Open to senior QA engineering, automation, reliability engineering, and quality architecture roles globally. Based in Bengaluru — available for remote, hybrid, or relocation.</p>
+
+        <div class="contact-grid reveal">
+          <a href="mailto:jobsprashant028@gmail.com" class="contact-card">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value">jobsprashant028@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/prashant-kumar-285939a1/" target="_blank" class="contact-card">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">LinkedIn</div>
+              <div class="contact-value">linkedin.com/in/prashant-kumar-285939a1</div>
+            </div>
+          </a>
+          <a href="https://github.com/jobsprashant028/prashant-interview-portfolio" target="_blank" class="contact-card">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">GitHub</div>
+              <div class="contact-value">github.com/jobsprashant028</div>
+            </div>
+          </a>
+          <a href="https://techlimeacademy.com" target="_blank" class="contact-card">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Portfolio &amp; Academy</div>
+              <div class="contact-value">techlimeacademy.com</div>
+            </div>
+          </a>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="mailto:jobsprashant028@gmail.com" class="btn btn-primary">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Send a message
+          </a>
+          <a href="https://www.linkedin.com/in/prashant-kumar-285939a1/" target="_blank" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24"><path d="M18 13v6h-2v-6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v6H10v-9h2v1.5a4 4 0 0 1 6 3.5z"/><rect x="4" y="9" width="2" height="9"/><circle cx="5" cy="5" r="1.5"/></svg>
+            Connect on LinkedIn
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-name">Prashant Kumar</div>
+  <div class="footer-copy">Senior QA Engineer &nbsp;·&nbsp; Bengaluru, India &nbsp;·&nbsp; Open to global roles</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
